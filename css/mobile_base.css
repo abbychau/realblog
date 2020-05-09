@@ -1,0 +1,230 @@
+.left{float:left}
+.right{float:right}
+.clear{clear:both}
+.slogan{margin-top:-5px; padding-bottom:5px;}
+.center{margin-left:auto; margin-right:auto;}
+.contentbody{
+	margin-top:20px;
+	margin-left:15px;
+	font-family: 新細明體;
+font-size: 16px;
+line-height: 30px;
+}
+.cateitem{padding-left:5px}
+.selected{font-weight:bold;}
+.contentbody img{margin-top:3px; margin-bottom:3px}
+.contentbody{padding:10px 0}
+.logotext{font: italic 20px Georgia, 'Times New Roman', 'Bitstream Charter', Times, serif;}
+.commentdiv{border:1px dashed #999; padding:5px;margin-bottom:5px}
+textarea{font-size:12px; border:1px solid #BBB}
+input{border:1px solid #BBB}
+body {
+	font-size: 12px;
+	font-family: Tahoma, Arial, Helvetica, Sans-Serif;
+	line-height: 150%;
+	margin: 0px;
+	padding: 0px;
+	background:#FFF;
+}
+
+p {
+	margin: 5px 0px 10px 0px;
+	padding: 0px;
+}
+
+td, th {
+	font-size: 100%;
+	line-height: 150%;
+}
+
+ul {
+	margin: 0px;
+	padding: 0px;
+	list-style: square;
+}
+
+li {
+	margin: 0px 0px 5px 0px;
+	padding: 0px;
+	margin-left: 2em;
+	list-style: outside;
+}
+
+/* links */
+
+a,
+a:link,
+a:visited,
+a:active {
+	text-decoration: underline;
+	cursor:pointer;
+}
+a:hover {
+text-decoration: none;
+}
+h5{font-size:12px; margin-bottom:0px}
+/* other */
+
+img {
+	border: none;
+	vertical-align: middle;
+}
+
+hr {
+	height: 1px;
+	border: 0;
+	border-top: 1px solid #BBB;
+}
+
+/****** Nav Panel ******/
+.navPanel{
+	position:fixed;width:100%;z-index:10;top:0px;
+}
+.innerNavPanel {
+	margin-left:auto; margin-right:auto; border-top:none;padding:1px;
+}
+
+/* buttons */
+
+.buttons{
+	line-height: 200%;
+	white-space: nowrap;
+	overflow: hidden;
+}
+.buttons a
+{
+	float: left;
+	display:block;
+	padding: 4px 4px 4px 7px;
+	text-decoration: none;
+	height:20px;
+	font-size:1.2em;
+}
+
+.buttons div
+{
+	float: left;
+	display: block;
+	padding: 4px;
+	
+	text-decoration: none;
+	border-left: 1px solid white;
+	height:18px;
+}
+.buttons a:hover{
+	text-decoration:underline;
+	background: none;
+}
+
+.buttons .label{
+	float: left;
+	overflow: hidden;
+	display: block;
+	padding: 4px 20px;
+	
+}
+.buttons .label a:link,
+.buttons .label a:active,
+.buttons .label a:visited,
+.buttons .label a:hover
+{
+	float: none;
+	display: inline;
+	height: auto;
+	padding: 0px;
+	font-weight: bold;
+	text-decoration: underline;
+	border: none;
+	background: none;
+}
+
+/****** Content Block ******/
+.innerwrapper{ margin-left:auto; margin-right:auto; border:none; padding:5px}
+
+.content{
+	width: 100%;
+	margin: 0px -260px 0px 0px;
+}
+.indexBlock{
+	line-height: 1.5em;
+	float:left;
+	padding-left:8px;
+}
+.innerContent{
+	margin-right: 210px;
+	overflow: visible;
+}
+
+/* content block */
+
+h3{
+	
+	font-size: 200%;
+	font-weight: bold;
+	padding: 7px 0px 7px 0px;
+	margin: 10px 0px 10px 0px;
+	border-bottom: 1px solid  #BBB;
+}
+h4 {
+	
+	font-size: 125%;
+	font-weight: bold;
+	padding: 5px 5px 5px 0px;
+	margin: 10px 0px 5px 0px;
+}
+.contentText{
+	line-height: 150%;
+}
+
+
+
+/****** Footer Block ******/
+.footer{
+	clear: both;
+	text-align: center;
+	
+	margin: 20px auto;
+	width:100%;
+}
+
+.tablepadding{
+	padding:3px;
+}
+.tablepaddingtop{
+	padding-top:18px;
+}
+.pagefooter{
+text-align:left; padding-left:35px; padding-bottom:5px; padding-top:5px; font-size:10px;
+}
+
+/****** Sidebar Block ******/
+.sidebar{
+ margin-top:10px;
+	
+padding:5px; border-left: 1px solid #BBB;
+}
+
+.artNav{padding:20px 10px 0 0;}
+
+.nobottom{border-bottom:none;
+-webkit-border-bottom-right-radius: 0px;
+-webkit-border-bottom-left-radius: 0px;
+-moz-border-radius-bottomright: 0px;
+-moz-border-radius-bottomleft: 0px;
+border-bottom-right-radius: 0px;
+border-bottom-left-radius: 0px;
+}
+.bottomround{
+-webkit-border-bottom-right-radius: 5px;
+-webkit-border-bottom-left-radius: 5px;
+-moz-border-radius-bottomright: 5px;
+-moz-border-radius-bottomleft: 5px;
+border-bottom-right-radius: 5px;
+border-bottom-left-radius: 5px;
+}
+.grayshadow{
+-webkit-box-shadow: #999 0px 0px 0.5em;-moz-box-shadow: #999 0px 0px 0.5em;
+}
+.outerwrapper{margin-top:40px;}
+.ajaxbox{-webkit-box-shadow: #CCC 0px 0px 1em;-moz-box-shadow: #CCC 0px 0px 1em;position:absolute; padding:5px; display:none}
+.blocka{display:block; padding:3px; margin:3px; }
