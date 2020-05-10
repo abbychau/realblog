@@ -1,4 +1,16 @@
 <?php 
+//!!!!!!!!!!!!
+
+//!!!!!!!!!!
+//!!!!!!!!!!
+//!!!!!!!!!!
+//!!!!!!!!!!
+//!!!!!!!!!!
+//!!!!!!!!!!
+//!!!!!!!!!!
+//!!!!!!!!!!
+//!!!!!!!!!!
+//!!!!!!!!!!
 	exit;
 require_once('Connections/zkizblog.php'); 
 //params
@@ -38,16 +50,14 @@ $totalRows_viewconlist = dbRs("SELECT count(*) as ce FROM zb_contentpages WHERE 
 $totalPages_viewconlist = ceil($totalRows_viewconlist/$maxRows_viewconlist)-1; //and totalpage too ^^
 
 //getType - Get the top list of types with numbers
-$query_gettype = sprintf("SELECT count(*) as ce, b.id, b.ownerid, b.name FROM zb_contentpages a, zb_contenttype b WHERE b.ownerid = %s AND a.type = b.id group by b.id", $gZid);
-$gettype = mysql_query($query_gettype, $zkizblog) or die(mysql_error());
-$row_gettype = mysql_fetch_assoc($gettype);
-$totalRows_gettype = mysql_num_rows($gettype);
+$types = dbAr("SELECT count(*) as ce, b.id, b.ownerid, b.name FROM zb_contentpages a, zb_contenttype b WHERE b.ownerid = :zid AND a.type = b.id group by b.id",['zid'=>$gZid]);
+
 
 //get comments
-$getComment = mysql_query("SELECT a.pageid as pid, b.id, SUBSTR(a.content,1,30) as conbar FROM zb_comment a, zb_contentpages b where a.pageid = b.id and b.ownerid = {$gZid} ORDER BY a.time DESC LIMIT 15");
+$comments = dbAr("SELECT a.pageid as pid, b.id, SUBSTR(a.content,1,30) as conbar FROM zb_comment a, zb_contentpages b where a.pageid = b.id and b.ownerid = {$gZid} ORDER BY a.time DESC LIMIT 15");
 
 $sidebar2.="<div class='newreply' style='overflow-x:hidden'><h5>最新回覆</h5><ul>";
-while ($row_getComment = mysql_fetch_assoc($getComment)) {
+foreach ($comments as $row_getComment) {
 $sidebar2.="<li><a href='http://realblog.zkiz.com/{$username}/".$row_getComment['pid']."'>".htmlspecialchars($row_getComment['conbar'])."...</a><br /></li>";
 }
 $sidebar2.="</ul></div>";
@@ -73,11 +83,11 @@ include_once('templatecode/header.php');
 <?php if($totalRows_viewconlist != 0){ ?>
 	<div class="cate">
 	
-	<?php do { ?>
+	<?php foreach($types as $row_gettype) { ?>
 	<span class="cateitem <?=($gType == $row_gettype['id'])?"selected":"";?>">
 	<a href="/<?=$username; ?>/<?=$row_gettype['id']; ?>/0"><?=$row_gettype['name']; ?></a>(<?=$row_gettype['ce']; ?>)
 	</span>
-	<?php } while ($row_gettype = mysql_fetch_assoc($gettype)); ?>
+	<?php } ?>
 	
 	</div>
 	<div style="clear:both"></div>

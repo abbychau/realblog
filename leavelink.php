@@ -53,7 +53,7 @@ $background = ".sidebar,.navPanel,.pagefooter{display:none;} .innerwrapper{width
 }
 
 
-$appearcus = true;
+
 include_once('templatecode/header.php');
 ?>
 <h3>寫新文章</h3>

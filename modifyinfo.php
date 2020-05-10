@@ -61,10 +61,10 @@ if ((isset($_POST["MM_update"])) && ($_POST["MM_update"] == "form1")) {
 		$params
 	);
 }
-
+$noSidebar = true;
 $blogInfo = dbRow("SELECT * FROM zb_user WHERE id = {$gId}");
 
-$appearcus = true;
+
 
 include_once('templatecode/header.php');
 ?>
@@ -90,13 +90,17 @@ include_once('templatecode/header.php');
 </style>
 
 <div class="">
-	<div class="">
-		<h3>修改信息</h3>
+	<div class="SettingForm">
+		<h1>設定</h1>
 
 		<form id="form1" class="form-horizontal" method="POST" action="<?php echo $editFormAction; ?>">
-			<h4>標語</h4>
-			<textarea style="margin:10px 10px 10px 25px;" name="slogan" cols="90" rows="2"><?php echo $blogInfo['slogan']; ?></textarea>
-			<h4>基本信息</h4>
+			<h3>標語</h3>
+			<div class="well" style='padding:1em 2em'>
+			<div class="form-group row">
+			<textarea class="form-control" name="slogan" cols="90" rows="2"><?php echo $blogInfo['slogan']; ?></textarea>
+			</div>
+			</div>
+			<h3>基本信息</h3>
 			<div class="well">
 				<div class="form-group row">
 					<label for="username" class="col-md-2 control-label">使用者名稱</label>
@@ -128,13 +132,11 @@ include_once('templatecode/header.php');
 
 
 
-			<h4>版面設置</h4>
-			<div class="well">
+			<h3>版面設置</h3>
+			<div class="well" style='padding:1em 2em'>
 
 				<div class="form-group">
 					<label for="mobilebg" class="control-label">手機版背景</label>
-
-
 					<input name="mobilebg" type="text" class="form-control" value="<?php echo $blogInfo['mobilebg']; ?>" placeholder="(e.g.http://what.com/image.jpg)" size="50" />
 				</div>
 				<div class="form-group">
@@ -181,8 +183,8 @@ include_once('templatecode/header.php');
 					<textarea class="form-control" name="sidebar" cols="90" rows="5"><?php echo $blogInfo['sidebar']; ?></textarea>
 				</div>
 			</div>
-			<h4>顯示設置</h4>
-			<div style="padding-left:25px;line-height:2em">
+			<h3>顯示設置</h3>
+			<div class="well">
 				Blog顯示形式:
 				<select name="displaytype">
 					<option value="1" <?php if (!(strcmp(1, $blogInfo['displaytype']))) {
@@ -226,14 +228,15 @@ include_once('templatecode/header.php');
 
 				</select>
 			</div>
-			<h4>留言系統 (選填)</h4>
-			<div style="padding-left:25px;line-height:2em">
+			<h3>留言系統 (選填)</h3>
+			<div class="well">
 				<input type="checkbox" name='comment_system1' value='1' <?= ($blogInfo['comment_system1'] == 1) ? "Checked" : ""; ?>> RealBlog 原生系統<br />
 				<input type="checkbox" name='comment_system2' value='1' <?= ($blogInfo['comment_system2'] == 1) ? "Checked" : ""; ?>> Facebook 留言插件
 				<input type="checkbox" name='comment_system3' value='1' <?= ($blogInfo['comment_system3'] == 1) ? "Checked" : ""; ?>> Disqus
 				<input type="text" name='disqus_name' value='<?= $blogInfo['disqus_name']; ?>' placeholder='輸入你的Disqus Shortname' />
 			</div>
-			<h4>其他</h4>
+			<h3>其他</h3>
+			<div class="well">
 			<table cellspacing="15">
 				<tr>
 					<td align="right" width="25"></td>
@@ -257,9 +260,10 @@ include_once('templatecode/header.php');
 					</td>
 				</tr>
 			</table>
-
-			<div>
-				<h4>黑名單設置</h4>
+			</div>
+			
+				<h3>黑名單設置</h3>
+				<div class="well">
 				<table cellspacing="15">
 					<tr>
 						<td align="right" width="25"></td>

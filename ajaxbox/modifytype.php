@@ -23,7 +23,7 @@ if($_POST['action'] == 'del_cate'){
 }
 
 $gettype = dbAr("SELECT * FROM zb_contenttype WHERE ownerid = $gId");
-$appearcus = true;
+
 ?>
 <script>
 	function wo(id){

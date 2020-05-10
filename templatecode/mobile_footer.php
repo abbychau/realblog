@@ -4,18 +4,6 @@
 	<div class="cussidebar">
 	<?php if ($sidebar!=""){echo $sidebar;} ?>
 
-	<?php if($appearcus==true){?>
-	<a href="http://widgets.zkiz.com"><img src="http://share.zkiz.com/official/widad.png" alt="wid ad" /></a>
-	<hr />
-	<?if($fbme){?>
-	Connected to Facebook as <br /><a href='<?=$fbme['link'];?>'><strong><?=$fbme['name'];?></strong></a>
-	<?}else{?>
-	<a href='<?=$facebook->getLoginUrl(array("read_stream","publish_stream"));?>'>
-	Connect to Facebook
-	</a>
-
-	<?}?>
-	<?php } ?>
 	</div>
 
 	<div class="syssidebar">

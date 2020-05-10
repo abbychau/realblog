@@ -61,12 +61,6 @@
 		<?=$sidebar; ?>
 	</div>
 <? } ?>
-<?php if($appearcus==true){?>
-	<hr />
-	<div class="cussidebar">
-		<a href="http://widgets.zkiz.com"><img src="http://share.zkiz.com/official/widad.png" alt="wid ad" style='width:100%;max-width:234px'/></a>
-	</div>
-<?php } ?>
 <?if($blogNewArticle){?>
 	<div class="panel panel-default">
 		<div class="panel-heading">
@@ -109,9 +103,11 @@
 		<?=$sidebar2; ?>
 	</div>
 <? } ?>
+
+<?php if(isset($rsslink)){?>
 <br />
 <a class='rsslink' href="<?=$rsslink;?>"><span class='glyphicon .glyphicon-cloud'></span> 按此訂閱RSS</a>
-
+<?}?>
 
 <?if(false && !$noAds){?>
 	<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>

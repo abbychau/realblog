@@ -37,7 +37,7 @@
 	}
 	$totalPages_viewconlist = ceil($totalRows_viewconlist/$maxRows_viewconlist)-1;
 	
-	$appearcus = true;
+	
 	
 include_once('templatecode/header.php'); ?>
 <h1>修改文章 - 列表</h1>
