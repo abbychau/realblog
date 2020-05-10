@@ -11,16 +11,18 @@
 		<?if($thistags && $row_getpage['isshow']==1){?>
 		<span class="glyphicon glyphicon-tag"></span> 
 		<?foreach($thistags as $v){?>
-			<a href="/<?=$gUser;?>/tag/<?=$v; ?>"><?=$v; ?></a> 
+			<a class='label label-default' href="/<?=$gUser;?>/tag/<?=$v; ?>"><?=$v; ?></a> 
 		<?}?>
 	<?}?>
-	<hr />
 
-	
 	<?php if($gUsername==$blogInfo['username']){?>
 		| <a href="/compose.php?tid=<?=$row_getpage['id']; ?>">修改</a>
 		| <a href="/delete.php?tid=<?=$row_getpage['id']; ?>">刪除</a>
 	<?php } ?>
+	<hr />
+
+	
+
 	
 	<div class="contentbody" id="pagecontent">
 		<?if ($row_getpage['isshow']==1){?>
@@ -33,8 +35,15 @@
 				</form>
 				<?}else{?>
 				<?php 
-					
-					echo preg_replace('/\[\[(.*?)\]\]/is', '<a href="http://realforum.zkiz.com/thread.php?wikiterm=$1">$1</a>', $row_getpage['content']);
+
+					if($row_getpage['content_markup']=='MARKDOWN'){
+					$Parsedown = new Parsedown();
+
+						echo $Parsedown->text($row_getpage['content']);
+					}else{
+						echo $row_getpage['content'];
+					}
+
 					
 				?>
 			<?}?>
@@ -67,7 +76,7 @@
                 <form id="form1" method="POST" action="<?=$editFormAction; ?>">
 					
 					<style>.comment_text{display:block;height:250px}</style>
-					<textarea class='form-control' placeholder="留言" name="content" onkeyup='$("#type_to_show").show("slow");' onblur='if($("#type_to_show").val().length==0){$("#type_to_show").hide("slow");}' required><?=$failtext;?></textarea>
+					<textarea class='form-control' placeholder="留言" name="content" onfocus='$("#type_to_show").show("slow");' onkeyup='$("#type_to_show").show("slow");' onblur='if($("#type_to_show").val().length==0){$("#type_to_show").hide("slow");}' required><?=$failtext;?></textarea>
 					
 					<div id='type_to_show' class='myhide'>
 					<? if($isLog){?>

@@ -84,7 +84,10 @@
 				}else{
 				$arrTags = explode(",",$_POST['tags']);
 			}
-			$pTid = rbPosts::newBlog($gId,$_POST['title'],$_POST['content'],$_POST['password'],isset($_POST['isshow']),$_POST['displaymode'],$_POST['type'],$arrTags,isset($_POST['is_page']));
+			$pTid = rbPosts::newBlog($gId,$_POST['title'],$_POST['content'],
+			'MARKDOWN',
+			$_POST['password'],
+			isset($_POST['isshow']),$_POST['displaymode'],$_POST['type'],$arrTags,isset($_POST['is_page']));
 			
 			if(isset($_POST['isshow'])){
 				addMoney(1,$my['id']);

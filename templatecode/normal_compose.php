@@ -155,7 +155,7 @@
 			<input type='hidden' name='form_action' value='<?=$form_action;?>' />
 			<div class="input-group" style='margin-bottom:0.2em'>
 				
-				<input type="text" name="title" id='qptitle' class='form-control' value="<?=$title;?>" placeholder="標題" required />
+				<input type="text" name="title" id='qptitle' class='form-control' value="<?=$title;?>" placeholder="標題" required="required" />
 				<span class="input-group-addon" style='font-size:0.9em'>
 					<select name="type" id='cate_type_list'>
 						<?php foreach($gettype as $v) { ?>
@@ -185,7 +185,7 @@
 						<span class="sr-only">看Tag</span>
 					</button>
 				</div>
-				<input class="form-control" type='text' name='tags' id='txttags' value='<?=is_array($thistags)?implode(",",$thistags):"";?>' placeholder='輸入TAG(用, 分隔)' />
+				<input class="form-control" type='text' name='tags' id='txttags' value='<?=is_array($thistags)?implode(",",$thistags):"";?>' placeholder='輸入TAG(用, 分隔)' required />
 				<div class="input-group-btn">
 					<a class='btn btn-default' onclick="extractTags();">自動Tag</a>
 					
@@ -211,7 +211,7 @@
 				
 			</div>
 			
-			<div class="panel panel-default" id='advancedSettings' style='display:none'>
+			<div class="panel panel-default" id='advancedSettings'>
 				<div class='panel-heading'>
 					<h4 class="panel-title">發送設定</h4>
 				</div>
@@ -245,7 +245,7 @@
 						<br />
 						<label>
 						[測試中]文章密碼(預設留空、最長32位): 
-						<input name="password" type="password" style="width:130px" size="32" value="<?=$row_getcontent['password'];?>" />
+						<input name="password" type="text" style="width:130px" size="32" value="<?=$row_getcontent['password'];?>" autocomplete="<?=time();?>" />
 						</label>
 					
 					
@@ -330,7 +330,7 @@ function findBootstrapEnvironment() {
 	
 	<? if(!isset($_GET['tid'])){ ?>
 		window.onbeforeunload=function() {
-			if($("#text_content").html() !="" || $('#text_content').code() != ""){
+			if(easyMDE.value() !=""){
 				if(overridden != true){
 					return '你的文章還沒儲存, 確定要離開嗎?';
 				}
@@ -406,11 +406,13 @@ function findBootstrapEnvironment() {
 			return true;
 		});
 	}
+	var easyMDE = new EasyMDE({element: $('#text_content')[0]});
 	<?php if ($row_getcontent['isshow'] != "-1") {?>
 	$('#content_submit').click(
 		function(){
-			$('#text_content').html($('#text_content').code());
-			if($('#text_content').code()==""){bootbox.alert("請輸入內文");return false;}
+			if(!$('#form1')[0].checkValidity()){$('#form1')[0].reportValidity();return;}
+			// $('#text_content').html($('#text_content').value());
+			if(easyMDE.value()==""){bootbox.alert("請輸入內文");return false;}
 			if($("#txttags").val()==""){
 				$("#txttags").val($("#cate_type_list option:selected").text());
 				window.onbeforeunload=null;
@@ -423,31 +425,33 @@ function findBootstrapEnvironment() {
 		}
 	);
 	<?} ?>
+
+
 	$(document).ready(function(){
 		getMyTags();
 		var _v = findBootstrapEnvironment();
 		var _height = (_v=='xs'||_v=='sm'||_v=='md')?($(window).height()-350):Math.min($(window).height()-200,$("#compose_sidebar").height());
-		$('#text_content').summernote(
-		{
-			height: _height,
-			lang: 'zh-TW', 
-			toolbar: [
-			['style', ['style']],
-			['font', ['bold', 'italic', 'underline', 'clear']],
-			['fontname', ['fontname']],
-			['color', ['color']],
-			['para', ['ul', 'ol', 'paragraph']],
-			['height', ['height']],
-			['table', ['table']],
-			['insert', ['link', 'picture', 'hr','video']],
-			['view', ['fullscreen', 'codeview']]
-			],
+		// $('#text_content').summernote(
+		// {
+		// 	height: _height,
+		// 	lang: 'zh-TW', 
+		// 	toolbar: [
+		// 	['style', ['style']],
+		// 	['font', ['bold', 'italic', 'underline', 'clear']],
+		// 	['fontname', ['fontname']],
+		// 	['color', ['color']],
+		// 	['para', ['ul', 'ol', 'paragraph']],
+		// 	['height', ['height']],
+		// 	['table', ['table']],
+		// 	['insert', ['link', 'picture', 'hr','video']],
+		// 	['view', ['fullscreen', 'codeview']]
+		// 	],
 			
-			onImageUpload: function(files, welEditable) {
-				sendFile(files[0], $(this), welEditable);
-			}				
-		}
-		);
+		// 	onImageUpload: function(files, welEditable) {
+		// 		sendFile(files[0], $(this), welEditable);
+		// 	}				
+		// }
+		// );
 		
         function sendFile(file, editor, welEditable) {
             data = new FormData();

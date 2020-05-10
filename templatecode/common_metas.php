@@ -22,8 +22,8 @@
 <script async src="//code.jquery.com/jquery-migrate-1.2.1.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.0/jquery.waypoints.min.js"></script>
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-<script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css" type="text/css" media="all" />
+<!-- <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css" type="text/css" media="all" /> -->
 
 <!--AABP-->
 <script type="text/javascript">var adblock = true;</script>
@@ -96,7 +96,6 @@
 </script>
 <style>
 	body {
-	padding-top: 70px;
 	padding-bottom: 20px;
 	}
 

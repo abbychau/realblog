@@ -49,12 +49,24 @@
 			$c = dbRs("SELECT count(1) FROM zb_contentpages WHERE ownerid = $ownerid AND title = '{$title}'");
 			return intval($c)>0;
 		}
-		public static function newBlog($ownerid,$title,$content,$password,$isshow=true,$displaymode=0,$type,$arrTags,$is_page=false){
+		public static function newBlog($ownerid,$title,$content,$content_markup,$password,$isshow=true,$displaymode=0,$type,$arrTags,$is_page=false){
 			
-			$insertSQL = sprintf("INSERT INTO zb_contentpages (ownerid, title, content,password, isshow, is_page, displaymode, type, datetime) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)",
-			intval($ownerid),self::safe2($title),self::safe2($content),self::safe2($password),$isshow?1:0,$is_page?1:0,intval($displaymode),intval($type),"NOW()");
-			
-			$lastcpid=dbQuery($insertSQL);
+			$ownerid=intval($ownerid);
+			$lastcpid=dbQuery("INSERT INTO zb_contentpages (ownerid, title, content, content_markup, password, isshow, is_page, displaymode, type, datetime) 
+			VALUES (:ownerid, :title, :content,:content_markup, :password, :isshow, :is_page, :displaymode, :type, NOW())",
+				[
+
+					'ownerid'=>$ownerid,
+					'title'=>$title,
+					'content'=>$content,
+					'content_markup'=>$content_markup,
+					'password'=>$password,
+					'isshow'=>$isshow?1:0,
+					'is_page'=>$is_page?1:0,
+					'displaymode'=>intval($displaymode),
+					'type'=>intval($type)
+				]
+			);
 			
 			
 			dbQuery("UPDATE `zb_user` SET lastcpid = $lastcpid WHERE id = $ownerid");
@@ -62,7 +74,7 @@
 			
 			foreach($arrTags as $tag){
 				insertTagAndNotify($tag,$lastcpid,"你關注的<strong>%number%</strong> 在Realblog 有新文章: $title",2);
-				}
+			}
 				
 			
 			return $lastcpid;

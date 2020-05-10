@@ -1,7 +1,7 @@
 <?php
 	
 	include(dirname(__FILE__)."/../../lib/common_init.php");
-	
+	include(dirname(__FILE__)."/../vendor/autoload.php");
 	$zkizblog = $conn;
 	$fbme = null;
 	if($isLog && $gUsername){

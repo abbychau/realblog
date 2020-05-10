@@ -8,12 +8,13 @@
 		
 		<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css" />
 
-		<link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.6.16/summernote.min.css" rel="stylesheet">
+		<!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.6.16/summernote.min.css" rel="stylesheet">
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.6.16/summernote.min.js"></script>
 		
 		<script src="/js/summernote-ext-video.js"></script>
-		<script src="/js/summernote-zh-TW.js"></script>
-
+		<script src="/js/summernote-zh-TW.js"></script> -->
+		<link rel="stylesheet" href="https://unpkg.com/easymde/dist/easymde.min.css">
+		<script src="https://unpkg.com/easymde/dist/easymde.min.js"></script>
 
         <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
         <script>
@@ -57,7 +58,7 @@
 			</div>
 		</div>
 		
-		<div class="navbar navbar-default navbar-fixed-top" id='rb_navbar'>
+		<div class="navbar navbar-default" id='rb_navbar'>
 			<div class="container">
 				<div class="navbar-header">
 					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#top_nav_main" style='border:0'>

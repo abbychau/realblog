@@ -14,7 +14,7 @@ echo "<?xml version=\"1.0\" encoding=\"utf-8\"?>
 	//START ITEMS
 	
 	$query_getentries = "SELECT a.id, a.title,a.content, a.datetime, a.commentnum, b.username, b.blogname FROM zb_contentpages a, zb_user b where b.blacklisted=0 AND slogan IS NOT NULL AND isshow = 1 AND a.password = '' AND a.ownerid = b.id AND a.ownerid != 423 order by id desc LIMIT 60";
-	$entries = dbAr($query_getentries, 3600*5);
+	$entries = dbAr($query_getentries,[], 3600*5);
 		
 	foreach ($entries as $row_getentries){
 		echo "<item>\n";
