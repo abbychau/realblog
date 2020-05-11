@@ -144,7 +144,7 @@
 		}
 		if($_GET['search'] == "hidden"){
 			$extcon .= " AND isshow = 0 ";
-			$searchArr="";
+			$searchArr=[];
 		}	
 		$page = isset($_GET['page'])?intval($_GET['page']):0;
 		

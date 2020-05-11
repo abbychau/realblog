@@ -1,4 +1,8 @@
 <?php
+//!!!!!!!!!!
+//DISABLED
+//!!!
+
     require_once('include/common.php');
 	$currentPage = $_SERVER["PHP_SELF"];
 	
@@ -10,18 +14,19 @@
 	$startRow_getResult = $pageNum_getResult * $maxRows_getResult;
 	
 	if (isset($_GET['searchtext'])) {
-		$txtSearchtext = (get_magic_quotes_gpc()) ? $_GET['searchtext'] : addslashes($_GET['searchtext']);
+		$txtSearchtext = $_GET['searchtext'];
 	}
 	if (isset($_GET['ownerid'])) {
-		$colname_ownerid = (get_magic_quotes_gpc()) ? $_GET['ownerid'] : addslashes($_GET['ownerid']);
+		$colname_ownerid = intval($_GET['ownerid']);
 		$qOwnerid = " AND ownerid = ".$colname_ownerid;
 	}else{$qOwnerid = " ";}
 	if ($txtSearchtext != ""){
 		screenMessage("Feature Disabled","Feature Disabled due to high traffic.");
-		$query_getResult = "SELECT a.id as id, title, username FROM zb_contentpages a, zb_user b WHERE a.ownerid=b.id AND content LIKE '%".$txtSearchtext."%'".$qOwnerid." ORDER BY datetime DESC";
+		exit;
+		$query_getResult = "SELECT a.id as id, title, username FROM zb_contentpages a, zb_user b WHERE a.ownerid=b.id AND content LIKE :searchTxt ".$qOwnerid." ORDER BY datetime DESC";
 		$query_limit_getResult = sprintf("%s LIMIT %d, %d", $query_getResult, $startRow_getResult, $maxRows_getResult);
 
-        $getResult = dbAr($query_limit_getResult);
+        $getResult = dbAr($query_limit_getResult,['searchTxt'=>"%$txtSearchtext%"]);
 		
 		$queryString_getResult = "";
 		if (!empty($_SERVER['QUERY_STRING'])) {

@@ -4,7 +4,7 @@ require_once('include/common.php');
 
 $gTid = intval($_GET['tid']);
 
-$gUser = safe($_GET['username']);
+$gUser = htmlentities($_GET['username']);
 if ($_GET['username'] == "" && !isset($_POST["reply_blog"])) {
 	if ($gTid != "") {
 		$tempUser = dbRs("SELECT username FROM zb_user a, zb_contentpages b WHERE b.ownerid = a.id AND b.id=$gTid");
@@ -14,10 +14,6 @@ if ($_GET['username'] == "" && !isset($_POST["reply_blog"])) {
 		screenMessage("Error", "Wrong URL");
 	}
 }
-if ($gUser == "slimgirls") {
-	$noAds = true;
-}
-
 $row_getpage = dbRow("SELECT * FROM zb_contentpages WHERE id = {$gTid}");
 if (!$row_getpage['ownerid']) {
 	//screenMessage("Error","The post is not found or deleted.");
@@ -118,13 +114,13 @@ if ($_POST["reply_blog"] == "1") {
 		dbQuery(sprintf("UPDATE zb_contentpages SET commentnum=commentnum+1 WHERE id=%s", $_GET['tid']));
 		$rfid = dbRs("SELECT id FROM zm_members WHERE username = '$gUsername'");
 
-		$safetitle = safe($row_getpage['title']);
+		$safetitle = htmlentities($row_getpage['title']);
 
 		$link = urlencode("http://realblog.zkiz.com/$gUser/$gTid");
 
 		sendNotification($gUser, "<b>$gUsername</b> 對 <b>$safetitle</b> 做出回應", $link);
 	} else {
-		$failtext = safe($_POST['content']);
+		$failtext = htmlentities($_POST['content']);
 	}
 }
 
@@ -134,8 +130,8 @@ if ((isset($_POST["reply_reply"])) && ($_POST["reply_reply"] == "1")) {
 	}
 	$postID = intval($_POST['id']);
 	$postTID =  intval($_POST['tid']);
-	$content = trim(safe(str_replace(['"', "'"], "", $_POST['says'])));
-	$username = trim(safe($_POST['username']));
+	$content = trim(htmlentities(str_replace(['"', "'"], "", $_POST['says'])));
+	$username = trim(htmlentities($_POST['username']));
 
 
 	if ($username == "") {
@@ -164,7 +160,7 @@ if ((isset($_POST["reply_reply"])) && ($_POST["reply_reply"] == "1")) {
 	}
 
 	if ($comments[0]['isUser'] == true) {
-		$safetitle = safe($row_getpage['title']);
+		$safetitle = htmlentities($row_getpage['title']);
 		$link = urlencode("http://realblog.zkiz.com/$gUser/$gTid");
 		sendNotifications($includeZids, "", "<b>$gUsername</b>在 <b>$safetitle</b> 對你做出的回應留言了。", $link);
 	}

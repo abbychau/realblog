@@ -3,7 +3,7 @@
 class rbPosts
 {
 
-	public static function modifyBlog($title, $content,$content_markup, $password, $displaymode = 0, $isshow = true, $type, $renewtime, $tid, $arrTags, $reNotify, $is_page = false)
+	public static function modifyBlog($title, $content, $content_markup, $password, $displaymode = 0, $isshow = true, $type, $renewtime, $tid, $arrTags, $reNotify, $is_page = false)
 	{
 		global $gId, $rsskey;
 		$pTid = intval($tid);
@@ -37,7 +37,6 @@ class rbPosts
 			]
 		);
 
-		//dbQuery("UPDATE `zb_user` SET lastcpid = ".safe($_POST['tid'])." WHERE id = $gId");
 		dbQuery("UPDATE `zb_user` SET lastcpid = (SELECT max(id) FROM zb_contentpages WHERE ownerid = $gId AND isshow=1) WHERE id = $gId");
 		clearTag($pTid, 2);
 		if ($reNotify) {
@@ -56,9 +55,10 @@ class rbPosts
 
 	public static function isBlogExists($ownerid, $title)
 	{
-		$title = safe($title);
-		$ownerid = intval($ownerid);
-		$c = dbRs("SELECT count(1) FROM zb_contentpages WHERE ownerid = $ownerid AND title = '{$title}'");
+		$c = dbRs(
+			"SELECT count(1) FROM zb_contentpages WHERE ownerid = :owenerid AND title = :title",
+			['ownerid' => intval($ownerid), 'title' => $title]
+		);
 		return intval($c) > 0;
 	}
 	public static function newBlog($ownerid, $title, $content, $content_markup, $password, $isshow = true, $displaymode = 0, $type, $arrTags, $is_page = false)

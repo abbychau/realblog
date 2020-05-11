@@ -17,8 +17,8 @@ require_once('include/common.php');
 $gType = intval($_GET['type']);
 $gPageNo = intval($_GET['pageNum_viewconlist']);
 if (isset($_GET['username'])) {
-	$gUser = safe($_GET['username']);
-	$gZid = dbRs("SELECT id FROM zb_user WHERE username = :user",['user'=>$gUser]);
+	
+	$gZid = dbRs("SELECT id FROM zb_user WHERE username = :user",['user'=>$_GET['username']]);
 }else{
 	$gZid = intval($_GET['zid']);
 }

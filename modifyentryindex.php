@@ -19,17 +19,19 @@
 	
 	$startRow_viewconlist = $page * $maxRows_viewconlist;
 	if(isset($_GET['modisearch'])){
-		//TODO: unsafe
-		$searchtxt = safe($_GET['modisearch']);
-		$extcon = " AND title LIKE '%$searchtxt%' ";
+		$searchtxt = $_GET['modisearch'];
+		$extcon = " AND title LIKE :title ";
+		$searchArr=['title'=>"%$searchtxt%"];
 	}
 	if($_GET['search'] == "hidden"){
 		$extcon .= " AND isshow = 0 ";
+		$searchArr=[];
 	}	
 	
 	$viewconlist = dbAr("SELECT a.title as title, a.datetime as datetime, a.id as id, b.name as type, b.id as type_id
 	FROM `zb_contentpages` a, zb_contenttype b 
-	WHERE a.type = b.id AND a.ownerid = $gId $extcon ORDER BY id DESC LIMIT $startRow_viewconlist, $maxRows_viewconlist");
+	WHERE a.type = b.id AND a.ownerid = $gId $extcon ORDER BY id DESC LIMIT $startRow_viewconlist, $maxRows_viewconlist",
+	$searchArr);
 	
 	if (isset($_GET['totalRows_viewconlist'])) {
 		$totalRows_viewconlist = $_GET['totalRows_viewconlist'];
