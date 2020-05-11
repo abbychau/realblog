@@ -2,14 +2,12 @@
 	require_once('include/common.php'); 
 	
 	//params
-	$gType = safe($_GET['type']);
-	$gPageNo = safe($_GET['pageNum_viewconlist']);
-	$gTag = safe($_GET['tag']);
+	$gType = intval($_GET['type']);
+	$gPageNo = intval($_GET['pageNum_viewconlist']);
+	
 	if (isset($_GET['username'])) {
-		$gUser = safe($_GET['username']);
-		$gZid = dbRs("SELECT id FROM zb_user WHERE username = '{$gUser}'");
+		$gZid = dbRs("SELECT id FROM zb_user WHERE username = :username",['username'=>$_GET['username']]);
 		if(!$gZid){header("location:http://realblog.zkiz.com");exit;}
-		if($gUser == "slimgirls"){$noAds=true;}
 	}else{
 		$gZid = intval($_GET['zid']);
 	}
@@ -41,8 +39,8 @@
 		$extCons =  "";
 		$temptype="all";
 	}
-	if($gTag!=""){
-		$conlistIds= getEntryByTag($gTag, 2);
+	if(isset($_GET['tag']) && properTag($_GET['tag']) != ""){
+		$conlistIds= getEntryByTag($_GET['tag'], 2);
 		if($conlistIds){
 		    $conlistIds=implode(",",$conlistIds);
 		    $extCons .= " AND id IN ({$conlistIds}) ";

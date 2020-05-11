@@ -6,8 +6,7 @@ if (!$isLog){die("請先登入");}
 $getNoti = dbAr("SELECT * FROM zm_notification WHERE zid = '$gUsername' AND `read` = 0");
 
 if ($_GET["type"] == "clickthrough"){
-	$getID = safe(base64_decode($_GET['id']));
-	dbQuery("UPDATE zm_notification SET `read` = 1 WHERE link = '$getID' AND zid='$gUsername'");
+	dbQuery("UPDATE zm_notification SET `read` = 1 WHERE link = :link AND zid='$gUsername'", ['link'=>base64_decode($_GET['id'])]);
 	
 	header("location:$getID");
 }

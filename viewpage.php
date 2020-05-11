@@ -50,7 +50,7 @@ if ($_GET['go'] == 'prev') {
 }
 
 if (isset($_POST["cid"])) {
-	$pcid = safe($_POST["cid"]);
+	$pcid = intval($_POST["cid"]);
 
 	if (dbRs("SELECT ownerid FROM zb_contentpages a, zb_comment b WHERE a.id = b.pageid AND b.id = $pcid") != $gId) {
 		die("fail");
@@ -71,8 +71,7 @@ if (isset($_POST["key"]) && isset($_POST["pcid"])) {
 	$comment = dbRs("SELECT comment FROM zb_comment WHERE id = {$pcid}");
 	$comments = unserialize($comment);
 	unset($comments[$arrayKey]);
-	$strComment = safe(serialize($comments));
-	dbQuery("UPDATE zb_comment SET comment = '$strComment' WHERE `id` = {$pcid}");
+	dbQuery("UPDATE zb_comment SET comment = :comment WHERE `id` = {$pcid}",['comment'=>serialize($comments)]);
 	die("success");
 }
 
@@ -133,10 +132,9 @@ if ((isset($_POST["reply_reply"])) && ($_POST["reply_reply"] == "1")) {
 	if ($blogInfo["login_to_comment"] == 1 && !$isLog) {
 		screenMessage("Error", "You must login to comment in this blog.");
 	}
-	$postID = safe($_POST['id']);
-	$postTID =  safe($_POST['tid']);
-	$says = safe($_POST['says']);
-	$content = trim(safe(str_replace(array('"', "'"), "", $_POST['says'])));
+	$postID = intval($_POST['id']);
+	$postTID =  intval($_POST['tid']);
+	$content = trim(safe(str_replace(['"', "'"], "", $_POST['says'])));
 	$username = trim(safe($_POST['username']));
 
 

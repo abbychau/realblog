@@ -16,7 +16,9 @@ if (!function_exists('dbRs')) {
     function generatePagin($pageNo, $base, $queryVariableName, $totalPages){}
     function cacheVoid($key){}
     function cacheGet($key){}
-    function timeago($referencedate=0, $timepointer='', $measureby=''){}
+	function timeago($referencedate=0, $timepointer='', $measureby=''){}
+	function prevURL(){}
+	function getIP(){}
 }
 $fbme = null;
 if ($isLog && $gUsername) {

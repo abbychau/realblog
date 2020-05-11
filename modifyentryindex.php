@@ -4,7 +4,7 @@
 	if(!$gId){
 		header("location: activate.php");
 	}
-	$gDid = safe($_GET['did']);
+	$gDid = intval($_GET['did']);
 	if($gDid != ""){
 		if(dbRs("SELECT ownerid FROM zb_contentpages WHERE id = {$gDid}") != $gId){screenMessage("Error","Access Denied!");}
 		dbQuery("DELETE FROM zb_contentpages WHERE id={$gDid}");
@@ -19,6 +19,7 @@
 	
 	$startRow_viewconlist = $page * $maxRows_viewconlist;
 	if(isset($_GET['modisearch'])){
+		//TODO: unsafe
 		$searchtxt = safe($_GET['modisearch']);
 		$extcon = " AND title LIKE '%$searchtxt%' ";
 	}

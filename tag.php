@@ -14,13 +14,13 @@
 	exit;
 require_once('include/common.php'); 
 //params
-$gType = safe($_GET['type']);
-$gPageNo = safe($_GET['pageNum_viewconlist']);
+$gType = intval($_GET['type']);
+$gPageNo = intval($_GET['pageNum_viewconlist']);
 if (isset($_GET['username'])) {
 	$gUser = safe($_GET['username']);
-	$gZid = dbRs("SELECT id FROM zb_user WHERE username = '{$gUser}'");
+	$gZid = dbRs("SELECT id FROM zb_user WHERE username = :user",['user'=>$gUser]);
 }else{
-	$gZid = safe($_GET['zid']);
+	$gZid = intval($_GET['zid']);
 }
 
 //get Settings
@@ -37,12 +37,11 @@ $username = $row_getSettings['username'];
 $htmltitle = "Real Blog - {$blogname}";
 $keywords = $blogname;
 $description = "{$blogname}, {$gUser}, ".htmlspecialchars($slogan);
-$tag=safe($_GET['tag']);
 
-$conlistIds= getEntryByTag($tag, 2);
+$conlistIds= getEntryByTag($_GET['tag'], 2);
 $conlistIds=implode(",",$conlistIds);
 
-$viewconlist = dbAr("SELECT * FROM zb_contentpages WHERE ownerid = {$gZid} AND isshow=1 AND tag={$tag} AND id IN({$conlistIds}) ORDER BY id DESC LIMIT {$startRow_viewconlist}, {$maxRows_viewconlist}");
+$viewconlist = dbAr("SELECT * FROM zb_contentpages WHERE ownerid = {$gZid} AND isshow=1 AND tag=:tag AND id IN({$conlistIds}) ORDER BY id DESC LIMIT {$startRow_viewconlist}, {$maxRows_viewconlist}",['tag'=>$_GET['tag']]);
 
 
 //get total rows

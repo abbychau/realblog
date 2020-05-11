@@ -3,9 +3,8 @@ require_once('../include/common.php');
 if(!$isLog){die ("Please Login");}
 
 if ($_POST["action"] == "insert_cate") {
-	$name = safe($_POST['name']);
-	$id = dbQuery("INSERT INTO zb_contenttype (ownerid, name) VALUES ($gId, '$name')");
-	echo json_encode(array("id"=>$id, "name"=> $name));
+	$id = dbQuery("INSERT INTO zb_contenttype (ownerid, name) VALUES ($gId, :name)",['name'=>$_POST['name']]);
+	echo json_encode(array("id"=>$id, "name"=> $_POST['name']));
 	exit;
 }
 

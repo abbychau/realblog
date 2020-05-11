@@ -138,23 +138,27 @@
 
 	if(!isset($_GET['box'])){
 		if(isset($_GET['modisearch'])){
-			$searchtxt = safe($_GET['modisearch']);
-			$extcon = " AND title LIKE '%$searchtxt%' ";
+			$searchtxt = trim($_GET['modisearch']);
+			$extcon = " AND title LIKE :title ";
+			$searchArr=['title'=>"%$searchtxt%"];
 		}
 		if($_GET['search'] == "hidden"){
 			$extcon .= " AND isshow = 0 ";
+			$searchArr="";
 		}	
 		$page = isset($_GET['page'])?intval($_GET['page']):0;
 		
 		$startRow_viewconlist = $page * $maxRows_viewconlist;
 		$viewconlist = dbAr("SELECT a.title as title, a.datetime as datetime, a.id as id, b.name as type, b.id as type_id
 		FROM `zb_contentpages` a, zb_contenttype b 
-		WHERE a.type = b.id AND a.ownerid = $gId $extcon ORDER BY id DESC LIMIT $startRow_viewconlist, $maxRows_viewconlist");
+		WHERE a.type = b.id AND a.ownerid = $gId $extcon ORDER BY id DESC LIMIT $startRow_viewconlist, $maxRows_viewconlist"
+		,$searchArr	
+		);
 		
 		if (isset($_GET['totalRows_viewconlist'])) {
 			$totalRows_viewconlist = $_GET['totalRows_viewconlist'];
 			} else {
-			$totalRows_viewconlist = dbRs("SELECT count(1) FROM `zb_contentpages` WHERE ownerid = $gId $extcon");
+			$totalRows_viewconlist = dbRs("SELECT count(1) FROM `zb_contentpages` WHERE ownerid = $gId $extcon",$searchArr);
 		}
 		$totalPages_viewconlist = ceil($totalRows_viewconlist/$maxRows_viewconlist)-1;
 	}
