@@ -138,7 +138,7 @@
 			沒有文章
 		<?}?>
 		<p>
-			<? pagin($page, "compose.php", qryStrE("page",$_SERVER['QUERY_STRING']), $totalPages_viewconlist); ?>
+			<? generatePagin($page, "compose.php", "page", $totalPages_viewconlist); ?>
 			
 		</p>
 		<a target='_blank' href="//realblog.zkiz.com/modifyentryindex.php">舊改文版面</a>

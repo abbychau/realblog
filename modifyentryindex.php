@@ -78,8 +78,7 @@ include_once('templatecode/header.php'); ?>
 	沒有文章
 <?}?>
 <p>
-	<? pagin($page, "modifyentryindex.php", qryStrE("page",$_SERVER['QUERY_STRING']), $totalPages_viewconlist); ?>
-	
+	<? generatePagin($page, "modifyentryindex.php", "page", $totalPages_viewconlist); ?>
 </p>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/4.4.0/bootbox.min.js"></script>
 <script>
