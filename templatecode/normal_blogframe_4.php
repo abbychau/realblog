@@ -143,14 +143,14 @@
 </div>
 <script type="text/javascript" src="http://<?=$blogInfo['disqus_name'];?>.disqus.com/recent_comments_widget.js?num_items=5&hide_avatars=0&avatar_size=32&excerpt_length=200&hide_mods=0"></script>
 								<?}?>
-								<?if($hotReply){?>
+								<?if($hotPost){?>
 									<div class='col-xs-12 col-sm-6'>
 										<div class="panel panel-default">
 											<div class="panel-heading">
 												<h4 class="panel-title">熱門博文</h4>
 											</div>
 											<ul class="list-group">
-												<?foreach($hotReply as $v){?>
+												<?foreach($hotPost as $v){?>
 													<li class="list-group-item"><?=$v;?></li>
 												<?}?>
 											</ul>

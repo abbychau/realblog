@@ -3,12 +3,7 @@
 class rbPosts
 {
 
-	public static function safe2($str)
-	{
-		return '"' . safe($str) . '"';
-	}
-
-	public static function modifyBlog($title, $content, $password, $displaymode = 0, $isshow = true, $type, $renewtime, $tid, $arrTags, $reNotify, $is_page = false)
+	public static function modifyBlog($title, $content,$content_markup, $password, $displaymode = 0, $isshow = true, $type, $renewtime, $tid, $arrTags, $reNotify, $is_page = false)
 	{
 		global $gId, $rsskey;
 		$pTid = intval($tid);
@@ -22,6 +17,7 @@ class rbPosts
 			"UPDATE zb_contentpages SET 
 				title=:title, 
 				content=:content, 
+				content_markup=:content_markup,
 				password=:password, 
 				displaymode=:displaymode, 
 				isshow=:isshow, 
@@ -29,10 +25,11 @@ class rbPosts
 				type=:type, 
 				datetime=$datetime WHERE id=:pTid",
 			[
-				"title" => safe2($title),
-				"content" => safe2($content),
-				"password" => safe2($password),
-				"displaymode" => safe2($displaymode),
+				"title" => $title,
+				"content" => $content,
+				'content_markup' => $content_markup,
+				"password" => $password,
+				"displaymode" => $displaymode,
 				"isshow" => $isshow ? 1 : 0,
 				"is_page" => $is_page ? 1 : 0,
 				"type" => intval($type),

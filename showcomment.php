@@ -8,8 +8,8 @@
 	}
 	//die("$gTid ..");
 	$arrReplies = dbAr("SELECT * FROM zb_comment WHERE pageid = $gTid order by id");
-	
-	$owner=dbRs("SELECT ownerid FROM zb_contentpages WHERE id = $gTid");
+	$blogInfo = dbRow("SELECT * FROM zb_contentpages WHERE id = $gTid");
+	$owner=$blogInfo['ownerid'];
 ?>
 <div class="panel panel-default">
 	<div class="panel-heading">
@@ -20,10 +20,12 @@
 		<?php if ($arrReplies){ ?>
 			<? foreach ($arrReplies as $row_getcomment){	?>
 				<div class='commentdiv' id='comment<?=$row_getcomment['id'];?>'>
-					<?=++$i;?><? if($row_getcomment['is_whisper'] == "1"){?>(對Blog 主的悄悄話)<?}?>. 
+					<?=++$i;?>. 
 					
-					
-					<? if($row_getcomment['is_whisper'] == "0" || $gUsername==$blogInfo['username']){?>
+					<? if($row_getcomment['is_whisper'] != 0 || $gUsername==$blogInfo['username']){?>
+
+						<? if($row_getcomment['is_whisper'] == "1"){?>(對Blog 主的悄悄話)<?}?>
+
 						<?php if ($row_getcomment['verified']>0){?> 
 							<strong>名稱:</strong><a href="/<?=htmlspecialchars($row_getcomment['name']); ?>"><?=htmlspecialchars($row_getcomment['name']); ?></a>
 							<?php if ($row_getcomment['verified']==2){?>

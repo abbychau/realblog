@@ -164,7 +164,7 @@
 					
 				<?}?>
 				<? if($blogInfo["blacklist"]!="" && in_array($gUsername,explode(",",$blogInfo["blacklist"])) ){ }else{ ?>
-				<a onclick='$("#formcomment<?=$row_getcomment['id'];?>").toggle()' class='btn btn-default btn-sm btn-raised'>留言</a>
+				<a onclick='$("#formcomment<?=$row_getcomment['id'];?>").toggle()' class='btn btn-default btn-sm btn-raised'>回覆</a>
 				<?}?>
 				<? if($blogInfo["login_to_comment"]!=1 || $isLog){?>
 					<div id='formcomment<?=$row_getcomment['id'];?>' class='myhide well' >

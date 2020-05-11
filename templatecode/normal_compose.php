@@ -242,7 +242,15 @@
 							<option value="2" <?php if ($row_getcontent['displaymode']=="2") {echo "selected=\"selected\"";} ?>>顯示全文</option>
 						</select>
 					</label>
-					
+					<label>
+						MARKUP: 
+						<select name="content_markup" id="content_markup">
+							<option value="MARKDOWN" <?php if ($row_getcontent['content_markup']=="MARKDOWN") {echo "selected=\"selected\"";} ?>>MARKDOWN</option>
+							<option value="HTML" <?php if ($row_getcontent['content_markup']=="HTML") {echo "selected=\"selected\"";} ?>>HTML</option>
+							
+							<option value="LATEX(WIP)" <?php if ($row_getcontent['content_markup']=="LATEX") {echo "selected=\"selected\"";} ?>>LATEX</option>
+						</select>
+					</label>
 						<br />
 						<label>
 						文章密碼(預設留空、最長32位): 

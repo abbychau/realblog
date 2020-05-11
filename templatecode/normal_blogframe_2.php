@@ -20,6 +20,14 @@
 			font-size: 1.2em;
 			}
 			.nav_pages a.active{background:#EEE;}
+
+			.panel-default>.panel-heading {
+
+				background-color:transparent;
+			}
+			.panel-default {
+    border-color: transparent;
+}
 			<?=$background;?>
 			
 		</style>
@@ -43,7 +51,7 @@
 			
 			<?=$blogInfo['topbar'];?>
 			<div class='row'>
-				<div class="col-xs-12 col-sm-3 col-lg-3">
+				<div class="col-xs-12 col-sm-3 col-lg-3" style="border-right: 1px solid #EEE;">
 					
 					<nav class="navbar" role="navigation"> <!--navbar-default-->
 						<div class="container-fluid">
@@ -74,6 +82,19 @@
 
 
 					</nav>
+					<?if($blogNewArticle){?>
+	<div class="panel panel-default hidden-xs">
+		<div class="panel-heading">
+			<h4 class="panel-title">最新文章</h4>
+		</div>
+        
+		<ul class="list-group">
+            <?foreach($blogNewArticle as $v){?>
+                <li class="list-group-item"><?=$v;?></li>
+            <?}?>
+        </ul>
+	</div>
+<?}?>
 					<?if($blogNewReply){?>
 <div class="panel panel-default hidden-xs">
 	<div class="panel-heading">

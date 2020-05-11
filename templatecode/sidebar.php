@@ -86,13 +86,13 @@
 		</ul>
 	</div>
 <?}?>
-<?if($hotReply){?>
+<?if($hotPost){?>
 	<div class="panel panel-default">
 		<div class="panel-heading">
 			<h4 class="panel-title">熱門博文</h4>
 		</div>
 		<ul class="list-group">
-			<?foreach($hotReply as $v){?>
+			<?foreach($hotPost as $v){?>
 				<li class="list-group-item"><?=$v;?></li>
 			<?}?>
 		</ul>

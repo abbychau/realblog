@@ -56,7 +56,11 @@
 		
 		if ($_POST["form_action"] == "modify") {
 			
-			$pTid = rbPosts::modifyBlog($_POST['title'],$_POST['content'],$_POST['password'],$_POST['displaymode'],isset($_POST['isshow']),$_POST['type'],isset($_POST['renewtime']),intval($_POST['tid']),explode(",",$_POST['tags']),isset($_POST['renotify']),isset($_POST['is_page']));
+			$pTid = rbPosts::modifyBlog(
+				$_POST['title'],$_POST['content'],
+				$_POST['content_markup']=="HTML"?"HTML":"MARKDOWN",
+				$_POST['password'],$_POST['displaymode'],
+				isset($_POST['isshow']),$_POST['type'],isset($_POST['renewtime']),intval($_POST['tid']),explode(",",$_POST['tags']),isset($_POST['renotify']),isset($_POST['is_page']));
 			
 			if($pTid == -1){
 				screenMessage("Error", "Wrong Owner");
@@ -112,14 +116,11 @@
 		}else{
 		
 		if(is_numeric($_GET['rftid']) && isset($_GET['rftid'])){
-			$tid = safe($_GET['rftid']);
+			$tid = intval($_GET['rftid']);
 			$title = dbRs("SELECT title FROM zf_contentpages WHERE id = $tid");
 			$content = dbRs("SELECT content FROM zf_reply WHERE isfirstpost = 1 AND fellowid = $tid");
 			$content = nl2br($content)."<br />原帖URL: http://realforum.zkiz.com/thread.php?tid=$tid";
 		}
-	}
-	function safe2($str){
-		return '"'.safe($str).'"';
 	}
 	$gettype = dbAr("SELECT * FROM zb_contenttype WHERE ownerid = $gId");
 	

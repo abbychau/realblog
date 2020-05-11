@@ -67,7 +67,7 @@
 	
 	//for sidebar.php
 	foreach($recentComments as $v){
-	$blogNewReply[]="<a href='http://realblog.zkiz.com/{$blogInfo['username']}/{$v['id']}'>".htmlspecialchars($v['conbar'])."...</a>";
+	$blogNewReply[]="<a href='http://realblog.zkiz.com/{$blogInfo['username']}/{$v['id']}'>".htmlspecialchars($v['conbar'])."</a>";
 	}
 	
 	$rsslink = "http://realblog.zkiz.com/rssdata/{$gZid}.xml";
