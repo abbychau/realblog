@@ -112,7 +112,7 @@
                 padding: .5em 1em;
             }
         </style>
-        <div class='panel panel-default'>
+        <!-- <div class='panel panel-default'>
             <div class='panel-heading'>
                 <h4 class='panel-title'>熱門Blog 文</h4>
             </div>
@@ -128,7 +128,7 @@
                     </li>
                 <?php } ?>
             </ul>
-        </div>
+        </div> -->
         <a onclick="dialog($('#hot_blog_post'),'熱門Blog 文')" style="position:fixed;right:1em;bottom:1em" class="btn btn-primary btn-fab hidden-lg hidden-md">
 
             <i class="material-icons">grade</i><div class="ripple-container"></div>
@@ -152,7 +152,7 @@
 			</ul>
 		</div>
 		-->
-
+<!-- 
 
         <div class='panel panel-default' style='padding:0.2em'>
             <div class="fb-page" data-href="https://www.facebook.com/zkizcom/" data-tabs="timeline"
@@ -163,7 +163,7 @@
                     </blockquote>
                 </div>
             </div>
-        </div>
+        </div> -->
 
 
         <div class='panel panel-default'>
