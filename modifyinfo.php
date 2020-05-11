@@ -1,6 +1,6 @@
 <?php
 header('X-XSS-Protection:0');
-require_once('Connections/zkizblog.php');
+require_once('include/common.php');
 
 if (!$isLog) {
 	screenMessage("Please Login", "You must login to set your info.", "/");

@@ -1,5 +1,5 @@
 <?php 
-require_once('Connections/zkizblog.php');
+require_once('include/common.php');
 
 header("Content-type: application/xml");
 echo "<?xml version=\"1.0\" encoding=\"utf-8\"?>

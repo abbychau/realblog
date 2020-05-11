@@ -1,4 +1,4 @@
-<?php require_once('Connections/zkizblog.php'); 
+<?php require_once('include/common.php'); 
 	$currentPage = $_SERVER["PHP_SELF"];
 	
 	$maxRows_getBloglist = 100;

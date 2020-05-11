@@ -1,5 +1,5 @@
 <?php 
-require_once('Connections/zkizblog.php'); 
+require_once('include/common.php'); 
 if($_GET['type'] == "notify"){
 if(!$isLog){return false;}
 	echo dbRs("SELECT count(*) FROM zm_notification WHERE `read` = 0 AND zid = '{$gUsername}'");

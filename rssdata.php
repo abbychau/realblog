@@ -1,5 +1,5 @@
 <?php
-include('Connections/zkizblog.php'); 
+include('include/common.php'); 
 $id=intval($_GET['id']);
 
 header ("Content-Type:text/xml; charset=utf-8");

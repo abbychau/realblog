@@ -1,5 +1,5 @@
 <?php 
-require_once('Connections/zkizblog.php'); 
+require_once('include/common.php'); 
 $editFormAction = $_SERVER['PHP_SELF'];
 if (isset($_SERVER['QUERY_STRING'])) {
   $editFormAction .= "?" . htmlentities($_SERVER['QUERY_STRING']);

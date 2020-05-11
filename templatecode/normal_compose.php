@@ -12,6 +12,7 @@
 	</ol>
 	
 <?}?>
+<script src="https://unpkg.com/turndown/dist/turndown.js"></script>
 
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/4.4.0/bootbox.min.js"></script>
@@ -244,12 +245,20 @@
 					
 						<br />
 						<label>
-						[測試中]文章密碼(預設留空、最長32位): 
+						文章密碼(預設留空、最長32位): 
 						<input name="password" type="text" style="width:130px" size="32" value="<?=$row_getcontent['password'];?>" autocomplete="<?=time();?>" />
 						</label>
-					
-					
 					<br />
+					<script>
+						
+						function toMarkDown(){
+							var turndownService = new TurndownService()
+
+							var markdown = turndownService.turndown(easyMDE.value())
+							easyMDE.value(markdown)
+						}
+					</script>
+					<a onclick='toMarkDown()'>HTML to MARKDOWN</a>
 					<!--
 						<iframe src="/ajaxbox/facebook_iframe.php" style="border:0;height:50px"></iframe>
 					-->

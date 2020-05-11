@@ -1,6 +1,6 @@
 <?php
-require('Connections/zkizblog.php'); 
-if($isLog){
+require('include/common.php'); 
+if($isLog && !isset($_GET['home'])){
     header("location: /compose.php");
 }
 $main_block_limit = 10;

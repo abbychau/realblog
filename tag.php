@@ -12,7 +12,7 @@
 //!!!!!!!!!!
 //!!!!!!!!!!
 	exit;
-require_once('Connections/zkizblog.php'); 
+require_once('include/common.php'); 
 //params
 $gType = safe($_GET['type']);
 $gPageNo = safe($_GET['pageNum_viewconlist']);

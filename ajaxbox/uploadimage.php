@@ -3,8 +3,8 @@
 	error_reporting(E_ERROR | E_PARSE);
 	ini_set('display_errors',true);
 	$memberPath = $_SERVER['DOCUMENT_ROOT']."/../members.zkiz.com/";
-//echo $memberPath.'/Connections/zkizblog.php';
-	require_once($memberPath.'/Connections/zkizblog.php');
+//echo $memberPath.'/include/common.php';
+	require_once($memberPath.'/include/common.php');
 
 	if(!$isLog){die("Not Log in");}
 

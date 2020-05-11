@@ -1,5 +1,5 @@
 <?php 
-	require_once('Connections/zkizblog.php');
+	require_once('include/common.php');
 	require_once("include/rbPosts.class.php");
 	
 	//settings
@@ -92,7 +92,7 @@
 			if(isset($_POST['isshow'])){
 				addMoney(1,$my['id']);
 			}
-			addNews($gUsername,$_POST['title'],2,"http://realblog.zkiz.com/$gUsername/$pTid");
+			// addNews($gUsername,$_POST['title'],2,"http://realblog.zkiz.com/$gUsername/$pTid");
 			cacheVoid($rsskey.$gId);
 		}
 		$postedURL="http://realblog.zkiz.com/$gUsername/$pTid";

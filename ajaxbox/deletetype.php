@@ -1,5 +1,5 @@
 <?php 
-require_once('../Connections/zkizblog.php'); 
+require_once('../include/common.php'); 
 if(!$isLog){die ("Please Login");}
 $tid = intval($_GET['tid']);
 if($tid==0){die("Access Denied.");}

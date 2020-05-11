@@ -1,5 +1,5 @@
 <?php 
-	require_once('Connections/zkizblog.php'); 
+	require_once('include/common.php'); 
 	
 	if (intval($_GET['tid'])) {
 		$gTid = intval($_GET['tid']);

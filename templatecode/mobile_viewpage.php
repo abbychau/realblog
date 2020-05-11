@@ -79,7 +79,7 @@
 	<input name="cid" type="hidden" id='cid' value="" /></form>
 	<?php 
 		if ($totalRows_getcomment>0){  
-			do {
+			foreach ($getcomment as $row_getcomment) {
 				$i++;
 			?>
 			<div class='commentdiv' id='comment<?php echo $row_getcomment['id'];?>'>
@@ -104,7 +104,7 @@
 				<?php echo nl2br(htmlspecialchars($row_getcomment['content'])); ?><br />
 				<div id="rr<?=$i;?>" style="display:none; padding-left:10px"></div>
 			</div>
-		<?php } while ($row_getcomment = mysql_fetch_assoc($getcomment));  } else {?>
+		<?php }  } else {?>
 		<div class='commentdiv'>
 			這篇文章暫時未有評論
 		</div>

@@ -1,5 +1,5 @@
 <?php 
-require_once('Connections/zkizblog.php'); 
+require_once('include/common.php'); 
 $loginId = dbRs("SELECT id FROM zb_user WHERE username='$gUsername'");
 $row_rs = dbRow("SELECT id, username, password, email FROM zm_members WHERE username='$gUsername'");
 if(!$loginId){

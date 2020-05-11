@@ -1,10 +1,6 @@
 <div class='row'>
     <div class='col-xs-12 col-md-8'>
-        <? if ($isLog) { ?>
-            <iframe src="/compose.php?box"
-                    style='width:100%;height:310px;border:0;margin:0;padding:0;overflow:hidden'
-                    class="panel panel-default"></iframe>
-        <? } ?>
+
 
 
         <div class="panel panel-default">
