@@ -13,7 +13,7 @@ WHERE b.ownerid = a.id
 AND a.blacklisted = 0
 AND b.id = lastcpid
 ORDER BY lastcpid DESC 
-LIMIT 0 , $side_block_limit",1200);
+LIMIT 0 , $side_block_limit",[],1200);
 
 $rbmems 	= dbAr("SELECT username,blogname,slogan 
 FROM zb_user a, 
@@ -24,7 +24,7 @@ WHERE a.id = b.ownerid
 $hot_topics = cacheGet("RB_HOT_TOPIC");
 
 
-$tags       = dbAr("SELECT * FROM zm_tags ORDER BY timestamp DESC LIMIT 50",60); 
+$tags       = dbAr("SELECT * FROM zm_tags ORDER BY timestamp DESC LIMIT 50",[],60); 
 
 $getentries = dbAr("SELECT a.id, a.title, a.datetime, a.commentnum, b.username, b.blogname 
 FROM zb_contentpages a, zb_user b 

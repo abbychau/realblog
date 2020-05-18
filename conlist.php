@@ -70,6 +70,14 @@
 	
 	$rsslink = "http://realblog.zkiz.com/rssdata/{$gZid}.xml";
 	
+	$pageinfos = dbAr("SELECT * FROM zb_contentpages WHERE ownerid = ? AND isshow = 1 AND is_page = 0 ORDER BY id DESC LIMIT 10",$blogInfo['id'], 7200);
+
+	foreach ($pageinfos as $item) {
+		//for sidebar.php
+		$blogNewArticle[] = "<a href='/{$blogInfo['username']}/{$item['id']}'>{$item['title']}</a>";
+	}
+
+
 	include_once('include/parsehtml.php'); 
 	$mainTemplate = 'conlist';
 	include(template("blogframe_{$blogInfo['blogframe']}"));

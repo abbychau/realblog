@@ -190,7 +190,7 @@ $blogfooter = $blogInfo['footer'];
 $sidebar = $blogInfo['sidebar'];
 
 
-$pageinfos = dbAr("SELECT * FROM zb_contentpages WHERE ownerid = {$blogInfo['id']} AND isshow = 1 AND is_page = 0 ORDER BY id DESC LIMIT 10", 7200);
+$pageinfos = dbAr("SELECT * FROM zb_contentpages WHERE ownerid = ? AND isshow = 1 AND is_page = 0 ORDER BY id DESC LIMIT 10",$blogInfo['id'], 7200);
 
 foreach ($pageinfos as $item) {
 	//for sidebar.php
@@ -239,4 +239,56 @@ $rsslink = "http://realblog.zkiz.com/rssdata/" . $blogInfo['id'] . ".xml";
 $thistags = getTags($gTid, 2);
 
 $mainTemplate = 'viewpage';
+
+
+
+
+
+class ParsedownExtensions extends \ParsedownExtra
+{
+   protected $newtablink = false;
+
+   public function setAllLinksNewTab($b)
+   {
+      $this->newtablink = $b===true;
+   }
+
+   protected function applyOwnLinkStuff(&$link)
+   {
+      // **snipp**
+      if($this->newtablink===true)
+      {
+         $link['target'] = "_blank";
+      }
+      // **snipp**
+   }
+
+   // overwritten methods from parsedown
+   protected function inlineLink($Excerpt) {
+      $temp = parent::inlineLink($Excerpt);
+      if(is_array($temp))
+      {
+         if(isset($temp['element']['attributes']['href']))
+         {
+            $this->applyOwnLinkStuff($temp['element']['attributes']);
+         }
+         return $temp;
+      }
+   }
+
+   protected function inlineUrl($Excerpt)
+   {
+      $temp = parent::inlineUrl($Excerpt);
+      if(is_array($temp))
+      {
+         if(isset($temp['element']['attributes']['href']))
+         {
+            $this->applyOwnLinkStuff($temp['element']['attributes']);
+         }
+         return $temp;
+      }
+   }
+
+}
+
 include(template("blogframe_{$blogInfo['blogframe']}"));

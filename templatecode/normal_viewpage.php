@@ -37,8 +37,9 @@
 				<?php 
 
 					if($row_getpage['content_markup']=='MARKDOWN'){
-					$Parsedown = new Parsedown();
-
+					$Parsedown = new ParsedownExtensions();
+					$Parsedown->setSafeMode(true);
+					$Parsedown->setAllLinksNewTab(true);
 						echo $Parsedown->text($row_getpage['content']);
 					}else{
 						echo $row_getpage['content'];

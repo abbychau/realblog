@@ -16,8 +16,14 @@ if (!$htmltitle) {
 		
 		<script src="/js/summernote-ext-video.js"></script>
 		<script src="/js/summernote-zh-TW.js"></script> -->
-	<link rel="stylesheet" href="https://unpkg.com/easymde/dist/easymde.min.css">
-	<script src="https://unpkg.com/easymde/dist/easymde.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css"/>
+<!-- <link rel="stylesheet" href="https://cdn.rawgit.com/xcatliu/simplemde-theme-dark/master/dist/simplemde-theme-dark.min.css"/> -->
+
+<script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
+
+<link rel="stylesheet"
+      href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.0.0/build/styles/default.min.css">
+<script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.0.0/build/highlight.min.js"></script>
 
 	<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 	<script>

@@ -161,7 +161,7 @@
             </div>
         </div> -->
 
-
+<!-- 
         <div class='panel panel-default'>
             <div class='panel-heading'>
                 <h4 class='panel-title'>最後更新網誌</h4>
@@ -173,35 +173,9 @@
                 }
                 ?>
             </div>
-        </div>
+        </div> -->
 
-        <div class='panel panel-default'>
-            <div class='panel-heading'>
-                <h4 class='panel-title'>有關RealBlog</h4>
-            </div>
-            <div class='panel-body' style='font-size:1.2em'>
-                <ul>
-                    <li><a href="//realforum.zkiz.com/viewforum.php?fid=169" target="_blank">Real Blog 官方討論版</a>
-                    </li>
-                    <li><a href="//wiki.zkiz.com/realblog" target="_blank">Real Blog Wiki Description</a></li>
-                    <li><a href="/bloglist.php" target="_blank">BLOG 列表</a></li>
-                </ul>
-            </div>
-        </div>
-
-
-        <div class='panel panel-default'>
-            <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-            <!-- rb_responsive -->
-            <ins class="adsbygoogle"
-                 style="display:block"
-                 data-ad-client="ca-pub-4549800596928715"
-                 data-ad-slot="2362568181"
-                 data-ad-format="auto"></ins>
-            <script>
-                (adsbygoogle = window.adsbygoogle || []).push({});
-            </script>
-        </div>
+<!-- 
         <div class='panel panel-default'>
             <div class='panel-heading'>
                 <h4 class='panel-title'>最受歡迎博客</h4>
@@ -215,7 +189,7 @@
                     </li>
                 <?php } ?>
             </ul>
-        </div>
+        </div> -->
 
         <div class='panel panel-default'>
             <div class='panel-heading'>
@@ -238,7 +212,9 @@
                         <img src="//feeds.feedburner.com/zkiz/rb.1.gif" alt="Real Blog 最新文章" style="border:0"/></a>
                 </div>
                 <br/>
-                <a href='/activate.php'>重新連結RB 到ZKIZ passport</a>
+                <a href='/activate.php'>重新連結RB 到ZKIZ passport</a><br />
+                <a href="/bloglist.php" target="_blank">BLOG 列表</a><br />
+                <a href="https://github.com/abbychau/realblog/issues">回報問題</a>
             </div>
         </div>
 

@@ -1,3 +1,7 @@
+<script src="https://cdn.bootcss.com/highlight.js/9.15.6/highlight.min.js"></script>
+<script src="/js/inline-attachment.js"></script>
+<script src="/js/codemirror-4.inline-attachment.js"></script>
+
 <?if (isset($postedURL)){?>
 	<div class="alert alert-success">
 		<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
@@ -262,8 +266,8 @@
 						function toMarkDown(){
 							var turndownService = new TurndownService()
 
-							var markdown = turndownService.turndown(easyMDE.value())
-							easyMDE.value(markdown)
+							var markdown = turndownService.turndown(simplemde.value())
+							simplemde.value(markdown)
 						}
 					</script>
 					<a onclick='toMarkDown()'>HTML to MARKDOWN</a>
@@ -347,7 +351,7 @@ function findBootstrapEnvironment() {
 	
 	<? if(!isset($_GET['tid'])){ ?>
 		window.onbeforeunload=function() {
-			if(easyMDE.value() !=""){
+			if(simplemde.value() !=""){
 				if(overridden != true){
 					return '你的文章還沒儲存, 確定要離開嗎?';
 				}
@@ -423,13 +427,43 @@ function findBootstrapEnvironment() {
 			return true;
 		});
 	}
-	var easyMDE = new EasyMDE({element: $('#text_content')[0]});
+	var simplemde = new SimpleMDE({
+		element: $('#text_content')[0],
+		renderingConfig: {
+			singleLineBreaks: false,
+			codeSyntaxHighlighting: true,
+		},
+		placeholder: "你有在想甚麼嗎...",
+	});
+	
+	inlineAttachment.editors.codemirror4.attach(simplemde.codemirror, {
+		
+    onFileUploadResponse: function(xhr) {
+        var result = JSON.parse(xhr.responseText),
+        filename = result[this.settings.jsonFieldName];
+
+        if (result && filename) {
+            var newValue;
+            if (typeof this.settings.urlText === 'function') {
+                newValue = this.settings.urlText.call(this, filename, result);
+            } else {
+                newValue = this.settings.urlText.replace(this.filenameTag, filename);
+            }
+            var text = this.editor.getValue().replace(this.lastValue, newValue);
+            this.editor.setValue(text);
+            this.settings.onFileUploaded.call(this, filename);
+        }
+        return false;
+    }
+});
+
+
 	<?php if ($row_getcontent['isshow'] != "-1") {?>
 	$('#content_submit').click(
 		function(){
 			if(!$('#form1')[0].checkValidity()){$('#form1')[0].reportValidity();return;}
 			// $('#text_content').html($('#text_content').value());
-			if(easyMDE.value()==""){bootbox.alert("請輸入內文");return false;}
+			if(simplemde.value()==""){bootbox.alert("請輸入內文");return false;}
 			if($("#txttags").val()==""){
 				$("#txttags").val($("#cate_type_list option:selected").text());
 				window.onbeforeunload=null;
