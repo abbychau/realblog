@@ -34,7 +34,7 @@
 								<strong class='memberIndicator'>(RB用戶)</strong>
 							<?}?>
 							<?php }else{?>
-							<strong>名稱:</strong><?=htmlspecialchars($row_getcomment['name']); ?> 
+							<strong>名稱:</strong><?=htmlspecialchars_decode($row_getcomment['name']); ?> 
 						<? }?>
 						
 						
@@ -47,13 +47,13 @@
 							<a onclick="deletecomment('<?=$row_getcomment['id'];?>')" href="javascript:">刪除</a>
 						<?php } ?>
 						<div>
-							<?=nl2br(htmlspecialchars($row_getcomment['content'])); ?>
+							<?=nl2br(htmlspecialchars_decode($row_getcomment['content'])); ?>
 						</div>
 						<?php if($row_getcomment['comment'] != ""){?>
 							<? $small_comments=unserialize($row_getcomment['comment']); ?>
 							<?php foreach($small_comments as $k=>$comment){ ?>
 								<div class='commentdiv' data-small-id="<?=$row_getcomment['id'];?>_<?=$k;?>">
-									<strong><?=$comment['username'];?></strong> : <?=htmlspecialchars($comment['content']);?>
+									<strong><?=$comment['username'];?></strong> : <?=htmlspecialchars_decode($comment['content']);?>
 									(<?=timeago($comment['timestamp']);?>) <?=$comment['isUser']?"(用戶認證)":"";?>
 									<? if($gUsername==$blogInfo['username']){?>
 										<a  onclick="deleteReplyReply(<?=$row_getcomment['id'];?>,<?=$k;?>)">刪除</a>

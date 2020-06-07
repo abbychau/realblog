@@ -87,13 +87,14 @@
 
 <ul class="pagination">
 	<li <? if ($curPageNo == 0) { ?>class="disabled"<?}?>><a href="/<?=$blogInfo['username']."/".$temptype; ?>/0">&laquo;</a></li>
+	
 	<? 
-			for($i=max(0,$curPageNo-5);$i <= $curPageNo +5; $i++){
+			for($i=max(0,$curPageNo-5);$i <= min($curPageNo + 5,$contentListCount - 1); $i++){
 				if($i==$curPageNo){
 				?>
-				<li class="active"><a href="#"><?=$i;?><span class="sr-only">(current)</span></a></li>
+				<li class="active"><a href="#"><?=$i+1;?><span class="sr-only">(current)</span></a></li>
 				<? }else{?>
-				<li><a href=<?="/".$blogInfo['username']."/".$temptype."/$i";?>><?=$i;?></a></li>
+				<li><a href=<?="/".$blogInfo['username']."/".$temptype."/$i";?>><?=$i + 1;?></a></li>
 				<?}		
 			}
 	?>

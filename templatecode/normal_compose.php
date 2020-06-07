@@ -34,6 +34,11 @@
     border-top-right-radius: .5em;
 	border-bottom-right-radius: .5em;
 	}
+	.cm-comment{
+		font-family: '細明體','Courier New', Courier, monospace
+	}
+	.input-group-addon{padding:0 12px}
+	.form-control{height:30px}
 
 </style>
 <!--
@@ -158,9 +163,9 @@
 	<div class="left_container col-xs-12 col-sm-9 col-md-9 col-lg-8">
 		<form name="form1" method="post" action="<?=$editFormAction; ?>" id='form1'>
 			<input type='hidden' name='form_action' value='<?=$form_action;?>' />
-			<div class="input-group" style='margin-bottom:0.2em'>
+			<div class="input-group" style='margin:0 -1px 0.5em 0'>
 				
-				<input type="text" name="title" id='qptitle' class='form-control' value="<?=$title;?>" placeholder="標題" required="required" />
+				<input style="border-top-left-radius: 5px; border-bottom-left-radius: 5px;" type="text" name="title" id='qptitle' class='form-control' value="<?=$title;?>" placeholder="標題" required="required" />
 				<span class="input-group-addon" style='font-size:0.9em'>
 					<select name="type" id='cate_type_list'>
 						<?php foreach($gettype as $v) { ?>
@@ -169,7 +174,7 @@
 					</select>
 				</span>
 				<span class="input-group-btn">
-					<a class='btn btn-default form-control' onclick='dialog("/ajaxbox/modifytype.php", "文章分類設置", false,400);'><span class="glyphicon glyphicon-th-list"></span></a>
+					<a style="border-top-right-radius: 5px; border-bottom-right-radius: 5px;" class='btn btn-default form-control' onclick='dialog("/ajaxbox/modifytype.php", "文章分類設置", false,400);'><span class="glyphicon glyphicon-th-list"></span></a>
 				</span>
 				
 			</div>
@@ -318,23 +323,24 @@ Responsive Youtube container:
 	
 </div>
 <script>
-		var overridden = false;//override close window
-function findBootstrapEnvironment() {
-    var envs = ['xs', 'sm', 'md', 'lg'];
+	var overridden = false;//override close window
 
-    var $el = $('<div>');
-    $el.appendTo($('body'));
+	function findBootstrapEnvironment() {
+		var envs = ['xs', 'sm', 'md', 'lg'];
 
-    for (var i = envs.length - 1; i >= 0; i--) {
-        var env = envs[i];
+		var $el = $('<div>');
+		$el.appendTo($('body'));
 
-        $el.addClass('hidden-'+env);
-        if ($el.is(':hidden')) {
-            $el.remove();
-            return env;
-        }
-    }
-}
+		for (var i = envs.length - 1; i >= 0; i--) {
+			var env = envs[i];
+
+			$el.addClass('hidden-'+env);
+			if ($el.is(':hidden')) {
+				$el.remove();
+				return env;
+			}
+		}
+	}
 	$(window).resize(function(){$(".xheLayout").width($(".left_container").width());});
 	setInterval(function(){$(".xheLayout").width($(".left_container").width());},500);
 	$(".delete_confirm").on("click", function(e) {
@@ -435,27 +441,28 @@ function findBootstrapEnvironment() {
 		},
 		placeholder: "你有在想甚麼嗎...",
 	});
-	
 	inlineAttachment.editors.codemirror4.attach(simplemde.codemirror, {
 		
-    onFileUploadResponse: function(xhr) {
-        var result = JSON.parse(xhr.responseText),
-        filename = result[this.settings.jsonFieldName];
+		onFileUploadResponse: function(xhr) {
+			var result = JSON.parse(xhr.responseText),
+			filename = result[this.settings.jsonFieldName];
 
-        if (result && filename) {
-            var newValue;
-            if (typeof this.settings.urlText === 'function') {
-                newValue = this.settings.urlText.call(this, filename, result);
-            } else {
-                newValue = this.settings.urlText.replace(this.filenameTag, filename);
-            }
-            var text = this.editor.getValue().replace(this.lastValue, newValue);
-            this.editor.setValue(text);
-            this.settings.onFileUploaded.call(this, filename);
-        }
-        return false;
-    }
-});
+			if (result && filename) {
+				var newValue;
+				if (typeof this.settings.urlText === 'function') {
+					newValue = this.settings.urlText.call(this, filename, result);
+				} else {
+					newValue = this.settings.urlText.replace(this.filenameTag, filename);
+				}
+				var text = this.editor.getValue().replace(this.lastValue, newValue);
+				this.editor.setValue(text);
+				this.settings.onFileUploaded.call(this, filename);
+			}
+			return false;
+		}
+	}
+
+);
 
 
 	<?php if ($row_getcontent['isshow'] != "-1") {?>

@@ -35,7 +35,7 @@
 	if($gType!="" && $gType!="all"){
 		$extCons = " AND type = {$gType} ";
 		$temptype= $gType;
-		}else{
+	}else{
 		$extCons =  "";
 		$temptype="all";
 	}
@@ -52,16 +52,18 @@
 	
 	$where_clause = "WHERE ownerid = {$gZid} AND isshow=1 {$extCons}";
 	$contentList = dbAr("SELECT * FROM zb_contentpages $where_clause ORDER BY id DESC LIMIT {$startRow_viewconlist}, {$blogInfo['displaynum']}");
+	$contentListCount = ceil(dbRs("SELECT count(1) FROM zb_contentpages $where_clause") / $blogInfo['displaynum'] );
+	// echo "SELECT count(1) FROM zb_contentpages $where_clause";
 	//$totalRows_viewconlist = dbRs("SELECT count(*) as ce FROM zb_contentpages $where_clause", $extCons==""?0:300);
 	//$totalPages_viewconlist = ceil($totalRows_viewconlist/$blogInfo['displaynum'])-1; //and totalpage too ^^
 	$getPages = dbAr("SELECT * FROM zb_contentpages a WHERE ownerid = {$blogInfo['id']} AND is_page=1");
 	//print_r($getPages);
 	//getType - Get the top list of types with numbers
-	$getTypes = dbAr("SELECT count(*) as ce, b.id, b.ownerid, b.name FROM zb_contentpages a, zb_contenttype b WHERE b.ownerid = $gZid AND a.type = b.id group by b.id",60*15);
+	$getTypes = dbAr("SELECT count(*) as ce, b.id, b.ownerid, b.name FROM zb_contentpages a, zb_contenttype b WHERE b.ownerid = $gZid AND a.type = b.id group by b.id",[],60*15);
 	
 	
 	//get comments
-	$recentComments = dbAr("SELECT b.id, SUBSTR(a.content,1,30) as conbar FROM zb_comment a, zb_contentpages b where b.isshow = 1 and a.pageid = b.id and b.ownerid = {$gZid} ORDER BY a.time DESC LIMIT 15",60*15);
+	$recentComments = dbAr("SELECT b.id, SUBSTR(a.content,1,30) as conbar FROM zb_comment a, zb_contentpages b where b.isshow = 1 and a.pageid = b.id and b.ownerid = {$gZid} ORDER BY a.time DESC LIMIT 15",[],60*15);
 	
 	//for sidebar.php
 	foreach($recentComments as $v){

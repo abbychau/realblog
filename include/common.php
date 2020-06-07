@@ -2,6 +2,55 @@
 
 include(dirname(__FILE__) . "/../../lib/common_init.php");
 include(dirname(__FILE__) . "/../vendor/autoload.php");
+
+class ParsedownExtensions extends \ParsedownExtra
+{
+   protected $newtablink = false;
+
+   public function setAllLinksNewTab($b)
+   {
+      $this->newtablink = $b===true;
+   }
+
+   protected function applyOwnLinkStuff(&$link)
+   {
+      // **snipp**
+      if($this->newtablink===true)
+      {
+         $link['target'] = "_blank";
+      }
+      // **snipp**
+   }
+
+   // overwritten methods from parsedown
+   protected function inlineLink($Excerpt) {
+      $temp = parent::inlineLink($Excerpt);
+      if(is_array($temp))
+      {
+         if(isset($temp['element']['attributes']['href']))
+         {
+            $this->applyOwnLinkStuff($temp['element']['attributes']);
+         }
+         return $temp;
+      }
+   }
+
+   protected function inlineUrl($Excerpt)
+   {
+      $temp = parent::inlineUrl($Excerpt);
+      if(is_array($temp))
+      {
+         if(isset($temp['element']['attributes']['href']))
+         {
+            $this->applyOwnLinkStuff($temp['element']['attributes']);
+         }
+         return $temp;
+      }
+   }
+
+}
+
+
 if (!function_exists('dbRs')) {
     die("Please Check Real Lib inclusion.");
     function dbRs($a="",$b="",$c="") {}

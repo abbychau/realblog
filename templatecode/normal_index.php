@@ -94,9 +94,8 @@
                         <li>Blog 空間主題CSS<strong>任意自由創作</strong></li>
                         <li><strong>CSS、Javascript 和HTML</strong> 無限制使用</li>
                         <li>可以自行加入<strong>廣告</strong></li>
-
+                        <li><a style='font-weight:bold' href='//members.zkiz.com/reg.php'>馬上建立自己的BLOG 吧!</a></li>
                     </ul>
-                    <a href="//members.zkiz.com/reg.php" class="btn btn-default">建立自己的BLOG 吧</a>
                 </div>
 
 
@@ -200,6 +199,8 @@
                     <a class='badge'
                        href="//zkiz.com/tag.php?tag=<?= htmlspecialchars($tag['tag']); ?>"><?= $tag['tag']; ?></a>
                 <?php } ?>
+                <hr />
+                <a href='https://readme.zkiz.com' target="_blank">Code Documentations</a>
             </div>
         </div>
 
@@ -215,6 +216,7 @@
                 <a href='/activate.php'>重新連結RB 到ZKIZ passport</a><br />
                 <a href="/bloglist.php" target="_blank">BLOG 列表</a><br />
                 <a href="https://github.com/abbychau/realblog/issues">回報問題</a>
+                
             </div>
         </div>
 
