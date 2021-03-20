@@ -8,7 +8,9 @@
 	if($gDid != ""){
 		if(dbRs("SELECT ownerid FROM zb_contentpages WHERE id = {$gDid}") != $gId){screenMessage("Error","Access Denied!");}
 		dbQuery("DELETE FROM zb_contentpages WHERE id={$gDid}");
-		cacheVoid($rsskey.$gId);
+		// cacheVoid($rsskey.$gId);
+		$redisNative->hDel($rsskey,$gId);
+
 		//screenMessage("刪除完成","<a href='/$gUsername'>返回自己的Blog</a><br /><a href='modifyentryindex.php'>返回修改文章列表</a>");
 		header("location: /modifyentryindex.php");
 		exit;

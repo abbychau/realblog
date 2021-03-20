@@ -4,8 +4,11 @@ $id=intval($_GET['id']);
 
 header ("Content-Type:text/xml; charset=utf-8");
 
-if(cacheValid($rsskey.$id,60)){
-	$content = cacheGet($rsskey.$id);
+
+if($redisNative->hExists($rsskey,$id)){
+	$redisNative->hGet($rsskey,$id);
+
+	// $content = cacheGet($rsskey.$id);
 	if($content!=""){
 		echo $content;
 		exit;
@@ -45,4 +48,4 @@ $strXml .= "<item>
 }
 $strXml .= "</channel></rss>";
 echo $strXml;
-cacheSet($rsskey.$id,$strXml);
+$redisNative->hSet($rsskey,$id,$strXml);

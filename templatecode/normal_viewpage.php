@@ -5,7 +5,7 @@
 </ul>
 <div class="content_container">
 	<? if($row_getpage['type']!=-1){?>
-		<h2 class="articletitle"><?="[".$thisType."]";?><?=$row_getpage['title']; ?> </h2>
+		<h2 class="articletitle"><?=$row_getpage['title']; ?> </h2>
 	<?}?>
 	<span class="glyphicon glyphicon-time"></span> <?=$row_getpage['datetime']; ?>
 		<?if($thistags && $row_getpage['isshow']==1){?>
@@ -14,7 +14,7 @@
 			<a class='label label-default' href="/<?=$gUser;?>/tag/<?=$v; ?>"><?=$v; ?></a> 
 		<?}?>
 	<?}?>
-
+	<span class="glyphicon glyphicon-th-list"></span> <?=$thisType?>
 	<?php if($gUsername==$blogInfo['username']){?>
 		| <a href="/compose.php?tid=<?=$row_getpage['id']; ?>">修改</a>
 		| <a href="/delete.php?tid=<?=$row_getpage['id']; ?>">刪除</a>
@@ -60,7 +60,7 @@
 </div>
 
 
-
+<div class='commenter_container'>
 <? if($blogInfo['comment_system1'] == 1){?>
 	
 	<? if($blogInfo["login_to_comment"]!=1 || $isLog){?>
@@ -109,12 +109,13 @@
 			</div>
 		</div>
 <?}?>
-        <?}else{?>
-		<div class="well">
-            本博客設定了必須登入後才可以留言。
-		</div>
-	<?}?>
-	<hr />
+	<?}else{?>
+	<div class="well">
+		本博客設定了必須登入後才可以留言。
+	</div>
+<?}?>
+<hr />
+</div>
 	<div class='comment_container'>
 		<form name="delcom" id='delcom' method="post" action="<?=$editFormAction; ?>">
 		<input name="cid" type="hidden" id='cid' value="" /></form>

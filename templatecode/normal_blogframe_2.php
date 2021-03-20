@@ -29,7 +29,9 @@
     border-color: transparent;
 }
 			<?=$background;?>
-			
+			<?php if($row_getpage['is_page']==1){?>
+				.leftSideBar,.blogtitle,.pager,.footer,.commenter_container,.comment_container{display:none}
+			<?php } ?>
 		</style>
 	<link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.20.0/themes/prism-twilight.min.css" rel="stylesheet" />
 	
@@ -51,7 +53,7 @@
 			
 			<?=$blogInfo['topbar'];?>
 			<div class='row'>
-				<div class="col-xs-12 col-sm-3 col-lg-3" style="border-right: 1px solid #EEE;">
+				<div class="col-xs-12 col-sm-3 col-lg-3 leftSideBar" style="border-right: 1px solid #EEE;">
 					
 					<nav class="navbar" role="navigation"> <!--navbar-default-->
 						<div class="container-fluid">
@@ -83,32 +85,31 @@
 
 					</nav>
 					<?if($blogNewArticle){?>
-	<div class="panel panel-default hidden-xs">
-		<div class="panel-heading">
-			<h4 class="panel-title">最新文章</h4>
-		</div>
-        
-		<ul class="list-group">
-            <?foreach($blogNewArticle as $v){?>
-                <li class="list-group-item"><?=$v;?></li>
-            <?}?>
-        </ul>
-	</div>
-<?}?>
+						<div class="panel panel-default hidden-xs">
+							<div class="panel-heading">
+								<h4 class="panel-title">最新文章</h4>
+							</div>
+							
+							<ul class="list-group">
+								<?foreach($blogNewArticle as $v){?>
+									<li class="list-group-item"><?=$v;?></li>
+								<?}?>
+							</ul>
+						</div>
+					<?}?>
 					<?if($blogNewReply){?>
-<div class="panel panel-default hidden-xs">
-	<div class="panel-heading">
-		<h4 class="panel-title">最新回覆</h4>
-		</div>
-		<ul class="list-group">
-			<?foreach($blogNewReply as $v){?>
-				<li class="list-group-item"><?=$v;?></li>
-			<?}?>
-		</ul>
-	</div>
-<?}?>
+						<div class="panel panel-default hidden-xs">
+							<div class="panel-heading"><h4 class="panel-title">最新回覆</h4></div>
+								<ul class="list-group">
+									<?foreach($blogNewReply as $v){?>
+										<li class="list-group-item"><?=$v;?></li>
+									<?}?>
+								</ul>
+						</div>
+							
+						
+					<?}?>
 				</div>
-				
 				<div class="col-xs-12 col-sm-9 col-lg-9">
 					<div class="mainpart panel panel-default ">
                         <div class="panel-body">

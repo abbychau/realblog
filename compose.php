@@ -97,7 +97,7 @@
 				addMoney(1,$my['id']);
 			}
 			// addNews($gUsername,$_POST['title'],2,"http://realblog.zkiz.com/$gUsername/$pTid");
-			cacheVoid($rsskey.$gId);
+			$redisNative->hDel($rsskey,$gId);
 		}
 		$postedURL="http://realblog.zkiz.com/$gUsername/$pTid";
 	}

@@ -937,6 +937,51 @@
         ]
     },
     {
+        "name": "qlurk/qlurk",
+        "version": "0.2.2",
+        "version_normalized": "0.2.2.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/CQD/qlurk.git",
+            "reference": "a18411e557271328d008a0cb902c00134662b2b4"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/CQD/qlurk/zipball/a18411e557271328d008a0cb902c00134662b2b4",
+            "reference": "a18411e557271328d008a0cb902c00134662b2b4",
+            "shasum": ""
+        },
+        "require": {
+            "guzzlehttp/guzzle": "^6"
+        },
+        "require-dev": {
+            "phpunit/phpunit": "^7|^6|^5|^4"
+        },
+        "time": "2018-04-20T03:24:58+00:00",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Qlurk\\": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "CQD",
+                "homepage": "https://github.com/cqd"
+            }
+        ],
+        "description": "Qlurk is a simple to use Plurk library",
+        "keywords": [
+            "api",
+            "plurk"
+        ]
+    },
+    {
         "name": "ralouphie/getallheaders",
         "version": "3.0.3",
         "version_normalized": "3.0.3.0",

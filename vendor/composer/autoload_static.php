@@ -36,6 +36,10 @@ class ComposerStaticInitbf2e5b52911a920e110dd262e6002431
             'Symfony\\Component\\Translation\\' => 30,
             'Symfony\\Component\\Finder\\' => 25,
         ),
+        'Q' => 
+        array (
+            'Qlurk\\' => 6,
+        ),
         'P' => 
         array (
             'Psr\\SimpleCache\\' => 16,
@@ -102,6 +106,10 @@ class ComposerStaticInitbf2e5b52911a920e110dd262e6002431
         'Symfony\\Component\\Finder\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/finder',
+        ),
+        'Qlurk\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/qlurk/qlurk/src',
         ),
         'Psr\\SimpleCache\\' => 
         array (

@@ -183,7 +183,7 @@ foreach ($getTypes as $v) {
 	}
 }
 $getPages = dbAr("SELECT * FROM zb_contentpages a WHERE ownerid = {$blogInfo['id']} AND is_page=1");
-dbQuery("UPDATE zb_contentpages SET views = views + 1 WHERE id = $gTid");
+// dbQuery("UPDATE zb_contentpages SET views = views + 1 WHERE id = $gTid");
 
 $background = $blogInfo['background'];
 $blogfooter = $blogInfo['footer'];

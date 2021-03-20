@@ -5,7 +5,7 @@ class rbPosts
 
 	public static function modifyBlog($title, $content, $content_markup, $password, $displaymode = 0, $isshow = true, $type, $renewtime, $tid, $arrTags, $reNotify, $is_page = false)
 	{
-		global $gId, $rsskey;
+		global $gId, $rsskey, $redisNative;
 		$pTid = intval($tid);
 		$owner = dbRs("SELECT ownerid FROM zb_contentpages WHERE id = $pTid");
 
@@ -48,8 +48,8 @@ class rbPosts
 			insertTag($arrTags, $pTid, 2);
 		}
 
-
-		cacheVoid($rsskey . $gId);
+		$redisNative->hDel($rsskey . $gId);
+		// cacheVoid($rsskey . $gId);
 		return $pTid;
 	}
 
@@ -95,11 +95,11 @@ class rbPosts
 	}
 	public static function deleteBlog($tid, $zid)
 	{
-		global $rsskey;
+		global $rsskey,$redisNative;
 		$tid = intval($tid);
 		dbQuery("DELETE FROM zb_contentpages WHERE id={$tid}");
 		dbQuery("UPDATE `zb_user` SET lastcpid = (SELECT max(id) FROM zb_contentpages WHERE ownerid = $zid AND isshow=1) WHERE id = $zid");
-
-		cacheVoid($rsskey . $zid);
+		$redisNative->hDel($rsskey, $zid);
+		// cacheVoid($rsskey . $zid);
 	}
 }

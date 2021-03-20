@@ -274,8 +274,14 @@
 							var markdown = turndownService.turndown(simplemde.value())
 							simplemde.value(markdown)
 						}
+						function toNewlines(){
+							var v = simplemde.value()
+							v=v.replace(/(?:\r\n|\r|\n)/g,"  \n")
+							simplemde.value(v)
+						}
 					</script>
 					<a onclick='toMarkDown()'>HTML to MARKDOWN</a>
+					<a onclick='toNewlines()'>每行加入換行符</a>
 					<!--
 						<iframe src="/ajaxbox/facebook_iframe.php" style="border:0;height:50px"></iframe>
 					-->
