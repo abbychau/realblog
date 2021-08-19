@@ -22,9 +22,9 @@ echo "<?xml version=\"1.0\" encoding=\"utf-8\"?>
 		echo "<link>"."http://realblog.zkiz.com/".$row_getentries['username']."/".$row_getentries['id']."</link>\n";
 		echo "<pubDate>".date(DATE_RSS,strtotime($row_getentries['datetime']))."</pubDate>\n";
 		echo "<description>
-		<![CDATA[
-		".strip_tags($row_getentries['content'],"<br><p>")."
-		]]>
+		
+		".htmlspecialchars(strip_tags($row_getentries['content'],"<br><p>"))."
+
 		</description>\n";
 		echo "</item>\n";
 	}

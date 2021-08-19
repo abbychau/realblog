@@ -73,7 +73,7 @@ $fbme = null;
 if ($isLog && $gUsername) {
 	$gId = dbRs("SELECT `id` FROM zb_user WHERE `username` = '$gUsername'");
 }
-$rsskey = "RB_RSS_CACHE_";
+$rsskey = "RB:RSS_CACHE";
 
 function template($str)
 {

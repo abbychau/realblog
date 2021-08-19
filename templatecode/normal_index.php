@@ -1,5 +1,5 @@
 <div class='row'>
-    <div class='col-xs-12 col-md-8'>
+    <div class='col-xs-12 col-md-9'>
 
 
 
@@ -22,67 +22,35 @@
         </div>
 
 
-        <script>
-            var lastLoadedId = 0;
-            var isLoading = true;
-            var myWP;
-            function loadDataToTimelineCard(data) {
-                $.each(data, function (i, element) {
-                    if (element.blogname != null) {
-                        var $dom = $("#timeline_card").clone();
-                        $dom.attr("id", "timeline_card_" + element.entry_id);
-                        $dom.addClass("timeline_card");
-                        $dom.find(".title").attr("href", "/" + element.owner_name + "/" + element.entry_id);
-                        $dom.find(".title").html(element.title);
-                        $dom.find(".datetime").html(element.datetime);
-                        $dom.find(".owner_name").html(element.blogname);
-                        $dom.find(".owner_name").attr("href", "/" + element.owner_name);
-                        $dom.find(".content").html(element.content);
-                        $dom.show();
-                        $("#timeline").append($dom);
-                    }
-                    lastLoadedId = element.entry_id;
-                });
-                $("#loading_icon").hide();
-                isLoading = false;
-            }
-            $(document).ready(function () {
-                isLoading = true;
-                $("#loading_icon").show();
-                $.getJSON("ajaxdata.php", {action: "newest_entry"}, function (data) {
-                    loadDataToTimelineCard(data);
-                });
+<?php
+	$query_getBloglist = "
+	SELECT username, blogname, title, b.id, datetime FROM
+	(SELECT id, username, blogname,blacklisted FROM zb_user) a,
+	(SELECT b1.id , b1.ownerid, title, datetime FROM zb_contentpages b1, (SELECT ownerid, max(id) as id FROM zb_contentpages group by ownerid) b2 WHERE b1.id = b2.id AND b1.ownerid = b2.ownerid) b
+	WHERE a.id = b.ownerid
+	AND a.blacklisted <> 1
+	ORDER BY b.id DESC LIMIT 50
+	";
+	$getBloglist = dbAr($query_getBloglist);
 
-            });
-            $(window).scroll(function () {
-                if ($(window).scrollTop() > $("#timeline").height() - 500) {
-                    if (!isLoading) {
-                        $("#loading_icon").show();
-                        isLoading = true;
-                        $.getJSON("ajaxdata.php", {"action": "newest_entry", "last_id": lastLoadedId}, function (data) {
-                            loadDataToTimelineCard(data);
-                        });
-                    }
-                }
-            });
-        </script>
-        <div id="timeline_card" class="panel panel-default" style="display:none">
-            <div class="panel-body">
-                <h4><a class="title"></a></h4>
-                <div class="content" style="word-break: break-all"></div>
-            </div>
-            <div class="panel-footer">
-                <span class='datetime'></span> | <a href="/" class="owner_name"></a>
-
-            </div>
-        </div>
-        <div id='timeline'></div>
-        <div id="loading_icon" style="display:none"><i class="fa fa-spinner fa-spin"></i> Loading...</div>
-        <div id="wp_bottom"></div>
-
-
+?>
+<table>
+	<tr style="font-weight:bold;">
+		<td width="200" >Blog</td><td>最後主題</td>
+	</tr>
+	<tr>
+	<td style="border-bottom:1px #DDD solid" colspan="4">
+	
+	</td>
+	<?php foreach($getBloglist as $row_getBloglist){ ?>
+		<tr>
+			<td><a href="/<?php echo $row_getBloglist['username']; ?>"><?=mb_substr($row_getBloglist['blogname'],0,40,"utf8"); ?></a></td>
+			<td><a href="/<?php echo $row_getBloglist['username']; ?>/<?=$row_getBloglist['id'];?>"><?=mb_substr($row_getBloglist['title'],0,40,"utf8");?></a></td>
+		</tr>
+	<?php } ?>
+</table>
     </div>
-    <div class='col-xs-12 col-md-4'>
+    <div class='col-xs-12 col-md-3'>
         <? if (!$isLog) { ?>
             <section>
 

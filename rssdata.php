@@ -15,6 +15,11 @@ if($redisNative->hExists($rsskey,$id)){
 	}
 }
 
+function utf8_for_xml($string)
+{
+    return preg_replace ('/[^\x{0009}\x{000a}\x{000d}\x{0020}-\x{D7FF}\x{E000}-\x{FFFD}]+/u', ' ', $string);
+}
+
 $pageinfos = dbAr("SELECT * FROM zb_contentpages WHERE ownerid = $id AND isshow = 1 AND password='' ORDER BY id DESC LIMIT 10");
 $Parsedown = new ParsedownExtensions();
 $Parsedown->setSafeMode(true);
@@ -34,15 +39,18 @@ $strXml="<?xml version=\"1.0\" encoding=\"utf-8\"?>
 foreach($pageinfos as $pageinfo) {
 
 	if($pageinfo['content_markup']=='MARKDOWN'){
-		$pageinfo['content'] = $Parsedown->text($pageinfo['content']);
+		$type='text/markdown';
+		// $pageinfo['content'] = $Parsedown->text($pageinfo['content']);
 	}else{
-		$pageinfo['content'] = strip_tags($pageinfo['content'],"<p><br><div>");
+		$type='html';
+		// $pageinfo['content'] = strip_tags($pageinfo['content'],"<p><br><div>");
 	}
-
+$pageinfo['content']=htmlspecialchars($pageinfo['content']);
+$pageinfo['content']=utf8_for_xml($pageinfo['content']);
 $strXml .= "<item>
 <title>{$pageinfo['title']}</title>
 <link>http://realblog.zkiz.com/{$blogInfo['username']}/{$pageinfo['id']}</link>
-<description><![CDATA[{$pageinfo['content']}]]></description>
+<content type=\"$type\">{$pageinfo['content']}</content>
 <pubDate>{$pageinfo['datetime']}</pubDate>
 </item>";
 }

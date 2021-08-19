@@ -115,7 +115,7 @@
 	.myhide{display:none}
 	.contentbody{
 		margin-top:20px;
-		margin-left:15px;
+		/*margin-left:15px;*/
 		font-size: 16px;
 		line-height: 30px;
 		padding:10px 0;

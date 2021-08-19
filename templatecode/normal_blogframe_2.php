@@ -7,7 +7,9 @@
 		
 		<? include(template("common_metas"));?>
 		
-		<?if($blogInfo['bootstrap_theme']){?><link rel="stylesheet" href="<?=$blogInfo['bootstrap_theme'];?>" /><? } ?>
+		<?if($blogInfo['bootstrap_theme']){?>
+			<link rel="stylesheet" href="<?=$blogInfo['bootstrap_theme'];?>" id='replacable_bootstrap_css' />
+		<? } ?>
 		<style type="text/css">
 			.container{width:100%;max-width: 1280px}
 			.navbar-nav > li > a{padding:0 0.6em 0.6em 0.6em;}
@@ -52,7 +54,7 @@
 			</div>
 			
 			<?=$blogInfo['topbar'];?>
-			<div class='row'>
+			<div class='row' style="<?=($row_getpage['is_page']==1?"padding-top:1em":"")?>">
 				<div class="col-xs-12 col-sm-3 col-lg-3 leftSideBar" style="border-right: 1px solid #EEE;">
 					
 					<nav class="navbar" role="navigation"> <!--navbar-default-->
@@ -97,7 +99,7 @@
 							</ul>
 						</div>
 					<?}?>
-					<?if($blogNewReply){?>
+					<?if($blogNewReply && $blogInfo['comment_system1'] == 1){?>
 						<div class="panel panel-default hidden-xs">
 							<div class="panel-heading"><h4 class="panel-title">最新回覆</h4></div>
 								<ul class="list-group">
@@ -110,7 +112,8 @@
 						
 					<?}?>
 				</div>
-				<div class="col-xs-12 col-sm-9 col-lg-9">
+				
+				<div class="col-xs-12 <?=($row_getpage['is_page']==1?"col-sm-12 col-lg-12":"col-sm-9 col-lg-9")?>">
 					<div class="mainpart panel panel-default ">
                         <div class="panel-body">
 						    <? include(template($mainTemplate)); ?>
