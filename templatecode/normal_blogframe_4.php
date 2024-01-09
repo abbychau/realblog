@@ -43,7 +43,7 @@
 								<form method="get" action="/searchresults.php" onsubmit="if(this.searchtext.value.length<2){alert('搜索內容過短');return false;}">
 									
 									
-									<input name="ownerid" value="4" type="hidden">
+									<input name="user_id" value="4" type="hidden">
 									<input type="text" style="border:none;background:none" maxlength="20" name="searchtext" placeholder="搜尋...">
 									<span class="input-group-btn">
 										<input style='background:0;border:none' name="Submit" id="sb_submit" value="搜尋" type="submit" />

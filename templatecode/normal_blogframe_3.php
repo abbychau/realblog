@@ -49,7 +49,7 @@
 			<? if($getPages){?>
 				<div class='nav_pages'>
 					<?php foreach($getPages as $v) { ?>
-						<a class='<?=($gTid == $v['id'])?"active":"";?>' href="/<?=$blogInfo['username']; ?>/<?=$v['id']; ?>"><?=$v['title']; ?> <span class='badge'><?=$v['commentnum']; ?></span></a>
+						<a class='<?=($gTid == $v['id'])?"active":"";?>' href="/<?=$blogInfo['username']; ?>/<?=$v['id']; ?>"><?=$v['title']; ?> <span class='badge'><?=$v['comment_count']; ?></span></a>
 					<?php } ?>
 				</div>
 			<?}?>	
@@ -58,7 +58,7 @@
 					
 					
 					<div class="input-group">
-						<input name="ownerid" value="4" type="hidden">
+						<input name="user_id" value="4" type="hidden">
 						<input type="text" class="form-control" maxlength="20" name="searchtext" placeholder="輸入關鍵字...">
 						<span class="input-group-btn">
 							<input class="btn btn-default" name="Submit" id="sb_submit" value="搜尋" type="submit" />

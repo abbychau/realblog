@@ -9,7 +9,7 @@
 	//die("$gTid ..");
 	$arrReplies = dbAr("SELECT * FROM zb_comment WHERE pageid = $gTid order by id");
 	$blogInfo = dbRow("SELECT * FROM zb_contentpages WHERE id = $gTid");
-	$owner=$blogInfo['ownerid'];
+	$owner=$blogInfo['user_id'];
 ?>
 <div class="panel panel-default">
 	<div class="panel-heading">

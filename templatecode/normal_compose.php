@@ -98,14 +98,18 @@
 
 		<div class="navbar-collapse collapse" id="editor_index">
 		<form method="get" action="<?=$_SERVER['PHP_SELF'];?>">
-			
 			<div class="input-group input-group-sm">
-				<input type="text" name="modisearch" id="modisearch" value="<?=htmlspecialchars($_GET['modisearch']);?>"  class="form-control"  />
+				<input 
+					type="text" 
+					name="modisearch" 
+					id="modisearch" 
+					value="<?=htmlspecialchars($_GET['modisearch']??'');?>" 
+					class="form-control" 
+				/>
 				<div class="input-group-btn">
 					<button type='submit' class="btn btn-default">搜索</button>
 				</div>
 			</div>
-			
 		</form>
 		
 		<div class='clear'></div>
@@ -122,14 +126,14 @@
 				</thead>
 				<?php foreach($viewconlist as $v) { ?>
 					<tr>
-						<td title="<?=$v['datetime']; ?>">
+						<td title="<?=$v['create_time']; ?>">
 							
 							<? if($gTid == $v['id']){?>
 								<span class='glyphicon glyphicon-chevron-right'></span>
 							<?}?>
 							<a target="_blank" href='/<?=$gUsername;?>/<?=$v['id']; ?>'><?=$v['title']; ?></a>
 							
-							<small>(<a target="_blank" href='/<?=$gUsername;?>/<?=$v['type_id']; ?>/0'><?=$v['type']; ?></a>) <?=timeago(strtotime($v['datetime']));?></small>
+							<small>(<a target="_blank" href='/<?=$gUsername;?>/<?=$v['type_id']; ?>/0'><?=$v['type']; ?></a>) <?=timeago(strtotime($v['create_time']));?></small>
 							
 						</td>
 						
@@ -200,7 +204,7 @@
 					<a class='btn btn-default' onclick="extractTags();">自動Tag</a>
 					
 
-					<input onclick="overridden=true;" id="content_submit" type="button" class="btn btn-primary  <?php if ($row_getcontent['isshow'] == "-1") {echo "disabled";} ?>" style="width:100px" value="送出" />
+					<input onclick="overridden=true;" id="content_submit" type="button" class="btn btn-primary  <?php if ($row_getcontent['is_show'] == "-1") {echo "disabled";} ?>" style="width:100px" value="送出" />
 					<button type="button" class="btn btn-default" onclick='$("#advancedSettings").toggle();'>
 						<span class="caret"></span>
 						<span class="sr-only">進階選項</span>
@@ -228,7 +232,7 @@
 				<div class="panel-body">
 					
 					<label>
-						<input <?php if ($row_getcontent['isshow'] ==1 || $form_action == 'compose') {echo "checked=\"checked\"";} ?> <?php if ($row_getcontent['isshow'] == "-1") {echo "disabled  readonly=\"readonly\"";} ?> name="isshow" type="checkbox" value="1" />公開顯示
+						<input <?php if ($row_getcontent['is_show'] ==1 || $form_action == 'compose') {echo "checked=\"checked\"";} ?> <?php if ($row_getcontent['is_show'] == "-1") {echo "disabled  readonly=\"readonly\"";} ?> name="is_show" type="checkbox" value="1" />公開顯示
 					</label>
 					<label>
 						<input <?php if ($row_getcontent['is_page'] == "1") {echo "checked=\"checked\"";} ?> name="is_page" type="checkbox" value="1" />類型為頁面
@@ -245,10 +249,10 @@
 					<? }?>
 					<label>
 						顯示方式: 
-						<select name="displaymode" id="displaymode">
-							<option value="0" <?php if ($row_getcontent['displaymode']=="0") {echo "selected=\"selected\"";} ?>>預設</option>
-							<option value="1" <?php if ($row_getcontent['displaymode']=="1") {echo "selected=\"selected\"";} ?>>只顯示標題</option>
-							<option value="2" <?php if ($row_getcontent['displaymode']=="2") {echo "selected=\"selected\"";} ?>>顯示全文</option>
+						<select name="display_mode" id="display_mode">
+							<option value="0" <?php if ($row_getcontent['display_mode']=="0") {echo "selected=\"selected\"";} ?>>預設</option>
+							<option value="1" <?php if ($row_getcontent['display_mode']=="1") {echo "selected=\"selected\"";} ?>>只顯示標題</option>
+							<option value="2" <?php if ($row_getcontent['display_mode']=="2") {echo "selected=\"selected\"";} ?>>顯示全文</option>
 						</select>
 					</label>
 					<label>
@@ -471,7 +475,7 @@ Responsive Youtube container:
 );
 
 
-	<?php if ($row_getcontent['isshow'] != "-1") {?>
+	<?php if ($row_getcontent['is_show'] != "-1") {?>
 	$('#content_submit').click(
 		function(){
 			if(!$('#form1')[0].checkValidity()){$('#form1')[0].reportValidity();return;}

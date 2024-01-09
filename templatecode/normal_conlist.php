@@ -5,8 +5,8 @@
 	
 	<h2 class="articletitle"><a href="/<?=$blogInfo['username']; ?>/<?=$v['id']; ?>"><?=$v['title']; ?></a></h2>
 	
-	<? $v['displaymode']= ($v['displaymode']==0)?$blogInfo['displaytype']:$v['displaymode'];?>
-	<? if($v['displaymode']==1){?>
+	<? $v['display_mode']= ($v['display_mode']==0)?$blogInfo['displaytype']:$v['display_mode'];?>
+	<? if($v['display_mode']==1){?>
 		<div class="contentbody">
 			<? if($v['password']){?>
 				Password Protected.
@@ -21,12 +21,12 @@
 		</div>
 	<? } ?>
 	
-	<? if($v['displaymode']==2){?>
+	<? if($v['display_mode']==2){?>
 		<!-- TITLE ONLY -->
 	<?}?>
 	
 	
-	<? if($v['displaymode']==3 || $v['displaymode']==2){?>
+	<? if($v['display_mode']==3 || $v['display_mode']==2){?>
 		<div class="contentbody abstract">
 			
 			
@@ -50,7 +50,7 @@
 		<?}?>
 	<?}?>
 	
-	<? if($v['displaymode']==4){?>
+	<? if($v['display_mode']==4){?>
 		
 		<div class="contentbody abstract">
 			<?
@@ -66,12 +66,12 @@
 	<?}?>
 	
 	
-	<span class="glyphicon glyphicon-time"></span>發表時間：<?=timeago(strtotime($v['datetime'])); ?>
+	<span class="glyphicon glyphicon-time"></span>發表時間：<?=timeago(strtotime($v['create_time'])); ?>
 	<? if($gUsername==$blogInfo['username']){?>
 		| <a href="/compose.php?tid=<?=$v['id']; ?>">修改</a> | <a href="/delete.php?tid=<?=$v['id']; ?>">刪除</a>
 	<? } ?>
 	<? if($blogInfo['comment_system1'] == 1){?>
-		| <a onclick="$('#showcomment<?=$v['id']; ?>').toggle('slow').load('/showcomment.php?tid=<?=$v['id']; ?>');">評論 (<?=$v['commentnum']; ?>)</a>
+		| <a onclick="$('#showcomment<?=$v['id']; ?>').toggle('slow').load('/showcomment.php?tid=<?=$v['id']; ?>');">評論 (<?=$v['comment_count']; ?>)</a>
 	<? }?>
 	<? if($blogInfo['comment_system2'] == 1){?>
 		| <a href="/<?=$blogInfo['username']; ?>/<?=$v['id']; ?>">評論(<fb:comments-count href="http://realblog.zkiz.com/<?=$blogInfo['username']; ?>/<?=$v['id']; ?>"></fb:comments-count>)</a>

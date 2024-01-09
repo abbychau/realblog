@@ -8,14 +8,14 @@
 	$appearcus = false;
 	
 	//Defences
-    if( str_ireplace($blackwords, '', $_POST['content']) != $_POST['content'] ){
+    if( str_ireplace($blackwords, '', $_POST['content']??'') != $_POST['content'] ){
         screenMessage("Error",'Bad Words Detected1');
 	}
     if( isRussian($_POST['content']) ){
         screenMessage("Error",'Bad Words Detected2');
 	}
 	
-    if( str_ireplace($blackwords, '', $_POST['tags']) != $_POST['tags'] ){
+    if( str_ireplace($blackwords, '', $_POST['tags']??'') != $_POST['tags'] ){
         screenMessage("Error",'Bad Words Detected3');
 	}
 	if(!$isLog){
@@ -27,12 +27,6 @@
 		exit;
 	}
 	
-	$right = dbRs("SELECT `right` FROM zm_members WHERE `username` = '$gUsername'");
-	if($right == 0){
-		screenMessage("Error", "Please validate your email.","http://members.zkiz.com/");
-		exit;
-	}
-	
 	
 	$editFormAction = $_SERVER['PHP_SELF'];
 	if (isset($_SERVER['QUERY_STRING'])) {
@@ -41,26 +35,13 @@
 	
 	if(isset($_POST['form_action'])){
 		
-		//modify or compose
-		//checking
-		//$fb = getFacebook();
-		
-		$right = dbRs("SELECT `right` FROM zm_members WHERE username = '$gUsername'");
-		if($right == 0){
-			screenMessage("Error", "Please validate your email.");
-			exit;
-		}
-		//End of common check
-		
-		
-		
 		if ($_POST["form_action"] == "modify") {
 			
 			$pTid = rbPosts::modifyBlog(
 				$_POST['title'],$_POST['content'],
 				$_POST['content_markup']=="HTML"?"HTML":"MARKDOWN",
-				$_POST['password'],$_POST['displaymode'],
-				isset($_POST['isshow']),$_POST['type'],isset($_POST['renewtime']),intval($_POST['tid']),explode(",",$_POST['tags']),isset($_POST['renotify']),isset($_POST['is_page']));
+				$_POST['password'],$_POST['display_mode'],
+				isset($_POST['is_show']),$_POST['type'],isset($_POST['renewtime']),intval($_POST['tid']),explode(",",$_POST['tags']),isset($_POST['renotify']),isset($_POST['is_page']));
 			
 			if($pTid == -1){
 				screenMessage("Error", "Wrong Owner");
@@ -91,11 +72,8 @@
 			$pTid = rbPosts::newBlog($gId,$_POST['title'],$_POST['content'],
 			'MARKDOWN',
 			$_POST['password'],
-			isset($_POST['isshow']),$_POST['displaymode'],$_POST['type'],$arrTags,isset($_POST['is_page']));
+			isset($_POST['is_show']),$_POST['display_mode'],$_POST['type'],$arrTags,isset($_POST['is_page']));
 			
-			if(isset($_POST['isshow'])){
-				addMoney(1,$my['id']);
-			}
 			// addNews($gUsername,$_POST['title'],2,"http://realblog.zkiz.com/$gUsername/$pTid");
 			$redisNative->hDel($rsskey,$gId);
 		}
@@ -105,8 +83,8 @@
 	$gTid = intval($_GET['tid']);
 	if($form_action=='modify'){
 		
-		$ownerid = dbRs("select ownerid from zb_contentpages a, zb_user b where a.ownerid = b.id AND a.id=$gTid");
-		if ($gId!=$ownerid){
+		$user_id = dbRs("select user_id from zb_contentpages a, zb_user b where a.user_id = b.id AND a.id=$gTid");
+		if ($gId!=$user_id){
 			die("Access Denied!");
 		}
 		$row_getcontent = dbRow("SELECT * FROM zb_contentpages WHERE id = $gTid");
@@ -122,12 +100,12 @@
 			$content = nl2br($content)."<br />原帖URL: http://realforum.zkiz.com/thread.php?tid=$tid";
 		}
 	}
-	$gettype = dbAr("SELECT * FROM zb_contenttype WHERE ownerid = $gId");
+	$gettype = dbAr("SELECT * FROM zb_contenttype WHERE user_id = $gId");
 	
 	
 	$gDid = intval($_GET['did']);
 	if($gDid){
-		if(dbRs("SELECT ownerid FROM zb_contentpages WHERE id = {$gDid}") != $gId){screenMessage("Error","Access Denied!");}
+		if(dbRs("SELECT user_id FROM zb_contentpages WHERE id = {$gDid}") != $gId){screenMessage("Error","Access Denied!");}
 		rbPosts::deleteBlog($gDid,$gId);
 		header("location: /compose.php");
 		exit;
@@ -143,22 +121,22 @@
 			$searchArr=['title'=>"%$searchtxt%"];
 		}
 		if($_GET['search'] == "hidden"){
-			$extcon .= " AND isshow = 0 ";
+			$extcon .= " AND is_show = 0 ";
 			$searchArr=[];
 		}	
 		$page = isset($_GET['page'])?intval($_GET['page']):0;
 		
 		$startRow_viewconlist = $page * $maxRows_viewconlist;
-		$viewconlist = dbAr("SELECT a.title as title, a.datetime as datetime, a.id as id, b.name as type, b.id as type_id
+		$viewconlist = dbAr("SELECT a.title as title, a.create_time as create_time, a.id as id, b.name as type, b.id as type_id
 		FROM `zb_contentpages` a, zb_contenttype b 
-		WHERE a.type = b.id AND a.ownerid = $gId $extcon ORDER BY id DESC LIMIT $startRow_viewconlist, $maxRows_viewconlist"
+		WHERE a.content_type_id = b.id AND a.user_id = $gId $extcon ORDER BY id DESC LIMIT $startRow_viewconlist, $maxRows_viewconlist"
 		,$searchArr	
 		);
 		
 		if (isset($_GET['totalRows_viewconlist'])) {
 			$totalRows_viewconlist = $_GET['totalRows_viewconlist'];
 			} else {
-			$totalRows_viewconlist = dbRs("SELECT count(1) FROM `zb_contentpages` WHERE ownerid = $gId $extcon",$searchArr);
+			$totalRows_viewconlist = dbRs("SELECT count(1) FROM `zb_contentpages` WHERE user_id = $gId $extcon",$searchArr);
 		}
 		$totalPages_viewconlist = ceil($totalRows_viewconlist/$maxRows_viewconlist)-1;
 	}

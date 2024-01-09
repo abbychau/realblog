@@ -36,17 +36,17 @@
 			</span>
 		<?php } ?>
 	</h4>
-	<div style="margin:2px;"><strong>發表時間：</strong><?=$row_viewconlist['datetime']; ?></div>
+	<div style="margin:2px;"><strong>發表時間：</strong><?=$row_viewconlist['create_time']; ?></div>
 	
 	<?php 
-	if($row_viewconlist['displaymode'] == 0){
+	if($row_viewconlist['display_mode'] == 0){
 		if($row_getSettings['displaytype']==1){
 			$showcontent=true;
 		}else{
 			$showcontent=false;
 		}
 	}else{
-		if($row_viewconlist['displaymode'] == 1){
+		if($row_viewconlist['display_mode'] == 1){
 			$showcontent=false;
 		}else{
 			$showcontent=true;
@@ -60,7 +60,7 @@
 		</div>
 	<? } ?>
 <div class="posted">
-	<a style="cursor:pointer" onclick="$('#showcomment<?=++$i;?>').toggle('slow').load('/showcomment.php?tid=<?=$row_viewconlist['id']; ?>');">看評論 (<?=$row_viewconlist['commentnum']; ?>)</a>
+	<a style="cursor:pointer" onclick="$('#showcomment<?=++$i;?>').toggle('slow').load('/showcomment.php?tid=<?=$row_viewconlist['id']; ?>');">看評論 (<?=$row_viewconlist['comment_count']; ?>)</a>
 	<a href="/<?=$username; ?>/<?=$row_viewconlist['id']; ?>">看全文</a>
 	<div id="showcomment<?=$i;?>" style="display:none"><img src="/images/loading.gif" alt="loading..." />&nbsp;</div>
 </div> 

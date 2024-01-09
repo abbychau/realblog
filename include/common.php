@@ -1,6 +1,8 @@
 <?php
+// show errors
+ini_set('display_errors', 1);
 
-include(dirname(__FILE__) . "/../../lib/common_init.php");
+include(dirname(__FILE__) . "/../lib/common_init.php");
 include(dirname(__FILE__) . "/../vendor/autoload.php");
 
 class ParsedownExtensions extends \ParsedownExtra
@@ -51,24 +53,6 @@ class ParsedownExtensions extends \ParsedownExtra
 }
 
 
-if (!function_exists('dbRs')) {
-    die("Please Check Real Lib inclusion.");
-    function dbRs($a="",$b="",$c="") {}
-    function dbRow($a="",$b="",$c="") {}
-    function dbAr($a="",$b="",$c="") {}
-    function dbQuery($a="",$b="",$c="") {}
-    function insertTag($a="",$b="",$c="") {}
-    function insertTagAndNotify($a="",$b="",$c="") {}
-    function screenMessage($a="",$b="",$c="") {}
-    function safe($a="",$b="",$c="") {}
-    function GetSQLValueString($a="",$b="",$c="") {}
-    function generatePagin($pageNo, $base, $queryVariableName, $totalPages){}
-    function cacheVoid($key){}
-    function cacheGet($key){}
-	function timeago($referencedate=0, $timepointer='', $measureby=''){}
-	function prevURL(){}
-	function getIP(){}
-}
 $fbme = null;
 if ($isLog && $gUsername) {
 	$gId = dbRs("SELECT `id` FROM zb_user WHERE `username` = '$gUsername'");

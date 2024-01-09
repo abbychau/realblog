@@ -18,24 +18,6 @@
         Powered by <a href='http://realblog.zkiz.com'><strong>RealBlog</strong></a>
 		<?=logEndTime();?>ms  (Q=<?=sizeof($queryRecord);?> + R=<?=sizeof($redisRecord);?>) 
 		
-		<div class="btn-group dropup">
-			<button class="btn btn-default btn-xs dropdown-toggle" type="button" data-toggle="dropdown">
-				分站 <span class="caret"></span>
-			</button>
-			<ul class="dropdown-menu">
-				
-				
-				<li><a href="http://www.zkiz.com" class='withNote'>Home</a></li>
-				<li class="divider"></li>
-				<li><a href="http://realforum.zkiz.com" class='withNote'>RealForum</a></li>
-				<li><a href="http://realblog.zkiz.com" class='withpencil'>RealBlog</a></li>
-				<li><a href="http://stock.zkiz.com" class='withSuitcase'>Stock</a></li>
-				<li><a href="http://ec.zkiz.com" class='withNote'>Endless Choice</a></li>
-				<li><a href="http://fancy.zkiz.com" class='withpencil'>Fancy Buzz</a></li>
-				<li><a href="http://gloomy.zkiz.com" target="_blank">Gloomy Sunday</a></li>
-				<li><a href="http://wiki.zkiz.com" target="_blank">ZKIZ Wiki</a></li>
-			</ul>
-		</div>
 		
 	</div>
 	

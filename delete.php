@@ -5,7 +5,7 @@ $gTid = intval($_GET['tid']);
 $gDid = intval($_GET['did']);
 
 if($gDid !=""){
-	$expected = dbRs("SELECT ownerid FROM zb_contentpages WHERE id = {$gDid}");
+	$expected = dbRs("SELECT user_id FROM zb_contentpages WHERE id = {$gDid}");
 	if(!$expected){
 		screenMessage("Error", "Not found!");
 		exit;

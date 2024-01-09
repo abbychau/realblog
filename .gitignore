@@ -1,2 +1,5 @@
 .user.ini
 vendor
+adminer*.*
+vendor/**
+vendor/composer/**

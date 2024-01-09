@@ -50,7 +50,7 @@
 			<? if($getPages){?>
 				<div class='nav'>
 					<?php foreach($getPages as $v) { ?>
-						<strong>置頂:</strong> <a class='<?=($gTid == $v['id'])?"active":"";?>' href="/<?=$blogInfo['username']; ?>/<?=$v['id']; ?>"><?=$v['title']; ?> <span class='badge'><?=$v['commentnum']; ?></span></a>
+						<strong>置頂:</strong> <a class='<?=($gTid == $v['id'])?"active":"";?>' href="/<?=$blogInfo['username']; ?>/<?=$v['id']; ?>"><?=$v['title']; ?> <span class='badge'><?=$v['comment_count']; ?></span></a>
 					<?php } ?>
 				</div>
 			<?}?>

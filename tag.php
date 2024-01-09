@@ -41,19 +41,19 @@ $description = "{$blogname}, {$gUser}, ".htmlspecialchars($slogan);
 $conlistIds= getEntryByTag($_GET['tag'], 2);
 $conlistIds=implode(",",$conlistIds);
 
-$viewconlist = dbAr("SELECT * FROM zb_contentpages WHERE ownerid = {$gZid} AND isshow=1 AND tag=:tag AND id IN({$conlistIds}) ORDER BY id DESC LIMIT {$startRow_viewconlist}, {$maxRows_viewconlist}",['tag'=>$_GET['tag']]);
+$viewconlist = dbAr("SELECT * FROM zb_contentpages WHERE user_id = {$gZid} AND is_show=1 AND tag=:tag AND id IN({$conlistIds}) ORDER BY id DESC LIMIT {$startRow_viewconlist}, {$maxRows_viewconlist}",['tag'=>$_GET['tag']]);
 
 
 //get total rows
-$totalRows_viewconlist = dbRs("SELECT count(*) as ce FROM zb_contentpages WHERE ownerid = {$gZid} AND isshow=1 {$extCons}");
+$totalRows_viewconlist = dbRs("SELECT count(*) as ce FROM zb_contentpages WHERE user_id = {$gZid} AND is_show=1 {$extCons}");
 $totalPages_viewconlist = ceil($totalRows_viewconlist/$maxRows_viewconlist)-1; //and totalpage too ^^
 
 //getType - Get the top list of types with numbers
-$types = dbAr("SELECT count(*) as ce, b.id, b.ownerid, b.name FROM zb_contentpages a, zb_contenttype b WHERE b.ownerid = :zid AND a.type = b.id group by b.id",['zid'=>$gZid]);
+$types = dbAr("SELECT count(*) as ce, b.id, b.user_id, b.name FROM zb_contentpages a, zb_contenttype b WHERE b.user_id = :zid AND a.content_type_id = b.id group by b.id",['zid'=>$gZid]);
 
 
 //get comments
-$comments = dbAr("SELECT a.pageid as pid, b.id, SUBSTR(a.content,1,30) as conbar FROM zb_comment a, zb_contentpages b where a.pageid = b.id and b.ownerid = {$gZid} ORDER BY a.time DESC LIMIT 15");
+$comments = dbAr("SELECT a.pageid as pid, b.id, SUBSTR(a.content,1,30) as conbar FROM zb_comment a, zb_contentpages b where a.pageid = b.id and b.user_id = {$gZid} ORDER BY a.time DESC LIMIT 15");
 
 $sidebar2.="<div class='newreply' style='overflow-x:hidden'><h5>最新回覆</h5><ul>";
 foreach ($comments as $row_getComment) {
@@ -103,17 +103,17 @@ include_once('templatecode/header.php');
 			</span>
 		<?php } ?>
 	</h4>
-	<div style="margin:2px;"><strong>發表時間：</strong><?=$row_viewconlist['datetime']; ?></div>
+	<div style="margin:2px;"><strong>發表時間：</strong><?=$row_viewconlist['create_time']; ?></div>
 	
 	<?php 
-	if($row_viewconlist['displaymode'] == 0){
+	if($row_viewconlist['display_mode'] == 0){
 		if($row_getSettings['displaytype']==1){
 			$showcontent=true;
 		}else{
 			$showcontent=false;
 		}
 	}else{
-		if($row_viewconlist['displaymode'] == 1){
+		if($row_viewconlist['display_mode'] == 1){
 			$showcontent=false;
 		}else{
 			$showcontent=true;
@@ -127,7 +127,7 @@ include_once('templatecode/header.php');
 		</div>
 	<? } ?>
 <div class="posted">
-	<a style="cursor:pointer" onclick="$('#showcomment<?=++$i;?>').toggle('slow').load('/showcomment.php?tid=<?=$row_viewconlist['id']; ?>');">看評論 (<?=$row_viewconlist['commentnum']; ?>)</a>
+	<a style="cursor:pointer" onclick="$('#showcomment<?=++$i;?>').toggle('slow').load('/showcomment.php?tid=<?=$row_viewconlist['id']; ?>');">看評論 (<?=$row_viewconlist['comment_count']; ?>)</a>
 	<a href="/<?=$username; ?>/<?=$row_viewconlist['id']; ?>">看全文</a>
 	<div id="showcomment<?=$i;?>" style="display:none"><img src="/images/loading.gif" alt="loading..." />&nbsp;</div>
 </div> 

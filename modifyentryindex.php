@@ -6,7 +6,7 @@
 	}
 	$gDid = intval($_GET['did']);
 	if($gDid != ""){
-		if(dbRs("SELECT ownerid FROM zb_contentpages WHERE id = {$gDid}") != $gId){screenMessage("Error","Access Denied!");}
+		if(dbRs("SELECT user_id FROM zb_contentpages WHERE id = {$gDid}") != $gId){screenMessage("Error","Access Denied!");}
 		dbQuery("DELETE FROM zb_contentpages WHERE id={$gDid}");
 		// cacheVoid($rsskey.$gId);
 		$redisNative->hDel($rsskey,$gId);
@@ -26,19 +26,19 @@
 		$searchArr=['title'=>"%$searchtxt%"];
 	}
 	if($_GET['search'] == "hidden"){
-		$extcon .= " AND isshow = 0 ";
+		$extcon .= " AND is_show = 0 ";
 		$searchArr=[];
 	}	
 	
-	$viewconlist = dbAr("SELECT a.title as title, a.datetime as datetime, a.id as id, b.name as type, b.id as type_id
+	$viewconlist = dbAr("SELECT a.title as title, a.create_time as create_time, a.id as id, b.name as type, b.id as type_id
 	FROM `zb_contentpages` a, zb_contenttype b 
-	WHERE a.type = b.id AND a.ownerid = $gId $extcon ORDER BY id DESC LIMIT $startRow_viewconlist, $maxRows_viewconlist",
+	WHERE a.content_type_id = b.id AND a.user_id = $gId $extcon ORDER BY id DESC LIMIT $startRow_viewconlist, $maxRows_viewconlist",
 	$searchArr);
 	
 	if (isset($_GET['totalRows_viewconlist'])) {
 		$totalRows_viewconlist = $_GET['totalRows_viewconlist'];
 		} else {
-		$totalRows_viewconlist = dbRs("SELECT count(1) FROM `zb_contentpages` WHERE ownerid = $gId $extcon");
+		$totalRows_viewconlist = dbRs("SELECT count(1) FROM `zb_contentpages` WHERE user_id = $gId $extcon");
 	}
 	$totalPages_viewconlist = ceil($totalRows_viewconlist/$maxRows_viewconlist)-1;
 	
@@ -69,7 +69,7 @@ include_once('templatecode/header.php'); ?>
 			<tr>
 				<td><a href='/<?=$gUsername;?>/<?php echo $row_viewconlist['type_id']; ?>/0'><?php echo $row_viewconlist['type']; ?></a></td>
 				<td><a href='/<?=$gUsername;?>/<?php echo $row_viewconlist['id']; ?>'><?=$row_viewconlist['title']; ?></a></td>
-				<td style="font-size:9pt"><?=$row_viewconlist['datetime']; ?></td>
+				<td style="font-size:9pt"><?=$row_viewconlist['create_time']; ?></td>
 				
 				<td>
 					<a href="compose.php?tid=<?php echo $row_viewconlist['id']; ?>" target='_blank'><span class="glyphicon glyphicon-pencil"></span></a>

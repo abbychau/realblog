@@ -16,14 +16,14 @@
 	if (isset($_GET['searchtext'])) {
 		$txtSearchtext = $_GET['searchtext'];
 	}
-	if (isset($_GET['ownerid'])) {
-		$colname_ownerid = intval($_GET['ownerid']);
-		$qOwnerid = " AND ownerid = ".$colname_ownerid;
-	}else{$qOwnerid = " ";}
+	if (isset($_GET['user_id'])) {
+		$colname_user_id = intval($_GET['user_id']);
+		$quser_id = " AND user_id = ".$colname_user_id;
+	}else{$quser_id = " ";}
 	if ($txtSearchtext != ""){
 		screenMessage("Feature Disabled","Feature Disabled due to high traffic.");
 		exit;
-		$query_getResult = "SELECT a.id as id, title, username FROM zb_contentpages a, zb_user b WHERE a.ownerid=b.id AND content LIKE :searchTxt ".$qOwnerid." ORDER BY datetime DESC";
+		$query_getResult = "SELECT a.id as id, title, username FROM zb_contentpages a, zb_user b WHERE a.user_id=b.id AND content LIKE :searchTxt ".$quser_id." ORDER BY create_time DESC";
 		$query_limit_getResult = sprintf("%s LIMIT %d, %d", $query_getResult, $startRow_getResult, $maxRows_getResult);
 
         $getResult = dbAr($query_limit_getResult,['searchTxt'=>"%$txtSearchtext%"]);
@@ -49,8 +49,8 @@ include_once('templatecode/header.php'); ?>
 	<span style="font-size:14px; font-weight:bold;"><a onclick="history.go(-1)" style="cursor:pointer">回上一頁</a></span>
 	<input name="searchtext" type="text" size="20" maxlength="100" />
 	<input type="submit" name="Submit" value="搜尋" />
-	<?php if (isset($_GET['ownerid'])) { ?>
-		<input name="ownerid" type="hidden" value="<?php echo $_GET['ownerid']; ?>" />
+	<?php if (isset($_GET['user_id'])) { ?>
+		<input name="user_id" type="hidden" value="<?php echo $_GET['user_id']; ?>" />
 	<?php } ?>
 </form>
 <h3>搜尋結果</h3><?php if ($txtSearchtext != "") {echo "(搜索:$txtSearchtext)";}?>

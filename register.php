@@ -8,16 +8,17 @@ if (isset($_SERVER['QUERY_STRING'])) {
 
 if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "form1")) {
   $id = dbQuery(
-    "INSERT INTO zb_user (username, password, email, blogname) VALUES (%s, %s, %s, %s)",
+    "INSERT INTO zb_user (username, password, slogan, email, blogname) VALUES (?,?,?,?,?)",
     [
-      "username" => $_POST['username'],
-      "password" => $_POST['password'],
-      "email" => $_POST['email'],
-      "blogname" => $_POST['blogname']
+      $_POST['username'],
+      $_POST['password'],
+      "這是我的Blog!",
+      $_POST['email'],
+      $_POST['blogname']
     ]
   );
 
-  dbQuery("INSERT INTO zb_contenttype (ownerid, name) VALUES ($id, \"預設分類\")");
+  dbQuery("INSERT INTO zb_contenttype (user_id, name) VALUES ($id, \"預設分類\")");
   die("已成功註冊! 請點<a href='http://realblog.zkiz.com'>這裡</a>跳回首頁!");
 }
 $htmltitle = "Real Blog - 註冊";
@@ -56,7 +57,8 @@ include_once('templatecode/header.php'); ?>
         </label></td>
     </tr>
     <tr>
-      <td colspan="2" align="center">
+      <td></td>
+      <td align="left">
         <input type="submit" name="Submit" value="提交註冊" />
       </td>
     </tr>

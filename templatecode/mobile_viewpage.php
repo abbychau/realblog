@@ -33,7 +33,7 @@
 			<span style="font-size:12px; font-weight:normal"><a href="/compose.php?tid=<?php echo $row_getpage['id']; ?>">修改</a>&nbsp;<a href="/delete.php?tid=<?php echo $row_getpage['id']; ?>">刪除</a></span>
 		<?php } ?>
 	</h4>
-	@ <?php echo $row_getpage['datetime']; ?><br />
+	@ <?php echo $row_getpage['create_time']; ?><br />
 	
 	<script type='text/javascript'>
 		function deletecomment(id){
@@ -52,7 +52,7 @@
 	</script>
 	
 	<div class="contentbody" id="pagecontent">
-		<?if ($row_getpage['isshow']==1){?>
+		<?if ($row_getpage['is_show']==1){?>
 			
 			<?php 
 				

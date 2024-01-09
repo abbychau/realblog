@@ -50,21 +50,21 @@
 	}
 	
 	
-	$where_clause = "WHERE ownerid = ? AND isshow=1 {$extCons}";
+	$where_clause = "WHERE user_id = ? AND is_show=1 {$extCons}";
 	$contentList = dbAr("SELECT * FROM zb_contentpages $where_clause ORDER BY id DESC LIMIT {$startRow_viewconlist}, {$blogInfo['displaynum']}",$gZid);
 
 	//$contentListCount = ceil(dbRs("SELECT count(1) FROM zb_contentpages $where_clause") / $blogInfo['displaynum'] );
 	// echo "SELECT count(1) FROM zb_contentpages $where_clause";
 	//$totalRows_viewconlist = dbRs("SELECT count(*) as ce FROM zb_contentpages $where_clause", $extCons==""?0:300);
 	//$totalPages_viewconlist = ceil($totalRows_viewconlist/$blogInfo['displaynum'])-1; //and totalpage too ^^
-	$getPages = dbAr("SELECT * FROM zb_contentpages a WHERE ownerid = {$blogInfo['id']} AND is_page=1");
+	$getPages = dbAr("SELECT * FROM zb_contentpages a WHERE user_id = {$blogInfo['id']} AND is_page=1");
 	//print_r($getPages);
 	//getType - Get the top list of types with numbers
-	$getTypes = dbAr("SELECT count(*) as ce, b.id, b.ownerid, b.name FROM zb_contentpages a, zb_contenttype b WHERE b.ownerid = ? AND a.type = b.id group by b.id",[$gZid],60*15);
+	$getTypes = dbAr("SELECT count(*) as ce, b.id, b.user_id, b.name FROM zb_contentpages a, zb_contenttype b WHERE b.user_id = ? AND a.content_type_id = b.id group by b.id",[$gZid],60*15);
 	
 	
 	//get comments
-	$recentComments = dbAr("SELECT b.id, SUBSTR(a.content,1,30) as conbar FROM zb_comment a, zb_contentpages b where b.isshow = 1 and a.pageid = b.id and b.ownerid = {$gZid} ORDER BY a.time DESC LIMIT 15",[],60*15);
+	$recentComments = dbAr("SELECT b.id, SUBSTR(a.content,1,30) as conbar FROM zb_comment a, zb_contentpages b where b.is_show = 1 and a.pageid = b.id and b.user_id = {$gZid} ORDER BY a.time DESC LIMIT 15",[],60*15);
 	
 	//for sidebar.php
 	foreach($recentComments as $v){
@@ -73,7 +73,7 @@
 	
 	$rsslink = "http://realblog.zkiz.com/rssdata/{$gZid}.xml";
 	
-	$pageinfos = dbAr("SELECT * FROM zb_contentpages WHERE ownerid = ? AND isshow = 1 AND is_page = 0 ORDER BY id DESC LIMIT 10",$blogInfo['id'], 7200);
+	$pageinfos = dbAr("SELECT * FROM zb_contentpages WHERE user_id = ? AND is_show = 1 AND is_page = 0 ORDER BY id DESC LIMIT 10",$blogInfo['id'], 7200);
 
 	if($pageinfos){
 	foreach ($pageinfos as $item) {

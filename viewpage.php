@@ -7,7 +7,7 @@ $gTid = intval($_GET['tid']);
 $gUser = htmlentities($_GET['username']);
 if ($_GET['username'] == "" && !isset($_POST["reply_blog"])) {
 	if ($gTid != "") {
-		$tempUser = dbRs("SELECT username FROM zb_user a, zb_contentpages b WHERE b.ownerid = a.id AND b.id=$gTid");
+		$tempUser = dbRs("SELECT username FROM zb_user a, zb_contentpages b WHERE b.user_id = a.id AND b.id=$gTid");
 		header("LOCATION: http://realblog.zkiz.com/$tempUser/$gTid");
 		exit;
 	} else {
@@ -15,20 +15,20 @@ if ($_GET['username'] == "" && !isset($_POST["reply_blog"])) {
 	}
 }
 $row_getpage = dbRow("SELECT * FROM zb_contentpages WHERE id = {$gTid}");
-if (!$row_getpage['ownerid']) {
+if (!$row_getpage['user_id']) {
 	//screenMessage("Error","The post is not found or deleted.");
 	header("location:https://articles.zkiz.com/?rbid=$gTid");
 	exit;
 }
-if ($row_getpage['isshow'] == "-1") {
+if ($row_getpage['is_show'] == "-1") {
 	screenMessage("This post is hidden", "The post is not open, it is hidden by the moderator.");
 }
-if ($row_getpage['isshow'] == "0") {
+if ($row_getpage['is_show'] == "0") {
 	screenMessage("This post is hidden", "The post is not open, it is hidden by the author.");
 }
-$blogInfo = dbRow("SELECT * FROM zb_user WHERE id = " . $row_getpage['ownerid']);
+$blogInfo = dbRow("SELECT * FROM zb_user WHERE id = " . $row_getpage['user_id']);
 
-$owner = $row_getpage['ownerid'];
+$owner = $row_getpage['user_id'];
 if (!$row_getpage) {
 	screenMessage("Error", "This article had been deleted or not exists.");
 }
@@ -36,23 +36,23 @@ if (!$row_getpage) {
 $editFormAction = "/$gUser/$gTid";
 
 if ($_GET['go'] == 'next') {
-	$nextArticle = dbRow("SELECT id, title FROM zb_contentpages WHERE id > $gTid AND ownerid = $owner ORDER BY id ASC LIMIT 1");
+	$nextArticle = dbRow("SELECT id, title FROM zb_contentpages WHERE id > $gTid AND user_id = $owner ORDER BY id ASC LIMIT 1");
 	header("location: /$gUser/{$nextArticle['id']}");
 }
 
 if ($_GET['go'] == 'prev') {
-	$prevArticle = dbRow("SELECT id, title FROM zb_contentpages WHERE id < $gTid AND ownerid = $owner ORDER BY id DESC LIMIT 1");
+	$prevArticle = dbRow("SELECT id, title FROM zb_contentpages WHERE id < $gTid AND user_id = $owner ORDER BY id DESC LIMIT 1");
 	header("location: /$gUser/{$prevArticle['id']}");
 }
 
 if (isset($_POST["cid"])) {
 	$pcid = intval($_POST["cid"]);
 
-	if (dbRs("SELECT ownerid FROM zb_contentpages a, zb_comment b WHERE a.id = b.pageid AND b.id = $pcid") != $gId) {
+	if (dbRs("SELECT user_id FROM zb_contentpages a, zb_comment b WHERE a.id = b.pageid AND b.id = $pcid") != $gId) {
 		die("fail");
 	}
 
-	dbQuery("UPDATE zb_contentpages set commentnum = commentnum - 1 WHERE `id` = (SELECT pageid FROM zb_comment WHERE `id` = {$pcid})");
+	dbQuery("UPDATE zb_contentpages set comment_count = comment_count - 1 WHERE `id` = (SELECT pageid FROM zb_comment WHERE `id` = {$pcid})");
 	dbQuery("DELETE FROM zb_comment WHERE `id` = {$pcid}");
 	die("success");
 }
@@ -60,7 +60,7 @@ if (isset($_POST["key"]) && isset($_POST["pcid"])) {
 	$pcid = intval($_POST["pcid"]);
 	$arrayKey = intval($_POST["key"]);
 
-	if (dbRs("SELECT ownerid FROM zb_contentpages a, zb_comment b WHERE a.id = b.pageid AND b.id = $pcid") != $gId) {
+	if (dbRs("SELECT user_id FROM zb_contentpages a, zb_comment b WHERE a.id = b.pageid AND b.id = $pcid") != $gId) {
 		die("fail");
 	}
 
@@ -111,9 +111,8 @@ if ($_POST["reply_blog"] == "1") {
 			]
 		);
 
-		dbQuery(sprintf("UPDATE zb_contentpages SET commentnum=commentnum+1 WHERE id=%s", $_GET['tid']));
-		$rfid = dbRs("SELECT id FROM zm_members WHERE username = '$gUsername'");
-
+		dbQuery(sprintf("UPDATE zb_contentpages SET comment_count=comment_count+1 WHERE id=%s", $_GET['tid']));
+		
 		$safetitle = htmlentities($row_getpage['title']);
 
 		$link = urlencode("http://realblog.zkiz.com/$gUser/$gTid");
@@ -166,7 +165,6 @@ if ((isset($_POST["reply_reply"])) && ($_POST["reply_reply"] == "1")) {
 	}
 
 	dbQuery("UPDATE zb_comment SET comment = '$comment' WHERE id={$postID}");
-	//dbQuery("UPDATE zf_user SET score1 = score1 - $amount WHERE id={$gId}");
 
 	header("Location:" . prevURL());
 	exit;
@@ -176,13 +174,13 @@ if ((isset($_POST["reply_reply"])) && ($_POST["reply_reply"] == "1")) {
 $comments = dbAr("SELECT * FROM zb_comment WHERE pageid = {$gTid} ORDER BY id");
 //$thisType = dbRs("SELECT name FROM zb_contenttype WHERE id = {$row_getpage['type']}");
 
-$getTypes = dbAr("SELECT count(*) as ce, b.id, b.ownerid, b.name FROM zb_contentpages a, zb_contenttype b WHERE b.ownerid = {$blogInfo['id']} AND a.type = b.id group by b.id");
+$getTypes = dbAr("SELECT count(*) as ce, b.id, b.user_id, b.name FROM zb_contentpages a, zb_contenttype b WHERE b.user_id = {$blogInfo['id']} AND a.content_type_id = b.id group by b.id");
 foreach ($getTypes as $v) {
 	if ($v["id"] == $row_getpage["type"]) {
 		$thisType = $v["name"];
 	}
 }
-$getPages = dbAr("SELECT * FROM zb_contentpages a WHERE ownerid = {$blogInfo['id']} AND is_page=1");
+$getPages = dbAr("SELECT * FROM zb_contentpages a WHERE user_id = {$blogInfo['id']} AND is_page=1");
 // dbQuery("UPDATE zb_contentpages SET views = views + 1 WHERE id = $gTid");
 
 $background = $blogInfo['background'];
@@ -190,7 +188,7 @@ $blogfooter = $blogInfo['footer'];
 $sidebar = $blogInfo['sidebar'];
 
 
-$pageinfos = dbAr("SELECT * FROM zb_contentpages WHERE ownerid = ? AND isshow = 1 AND is_page = 0 ORDER BY id DESC LIMIT 10",$blogInfo['id'], 7200);
+$pageinfos = dbAr("SELECT * FROM zb_contentpages WHERE user_id = ? AND is_show = 1 AND is_page = 0 ORDER BY id DESC LIMIT 10",$blogInfo['id'], 7200);
 
 foreach ($pageinfos as $item) {
 	//for sidebar.php
@@ -200,14 +198,14 @@ foreach ($pageinfos as $item) {
 
 if ($blogInfo['comment_system1'] == 1) {
 	//get comments
-	$recentComments = dbAr("SELECT b.id, SUBSTR(a.content,1,30) as conbar FROM zb_comment a, zb_contentpages b where b.isshow = 1 AND is_whisper = 0 AND a.pageid = b.id AND b.ownerid = {$blogInfo['id']} ORDER BY a.time DESC LIMIT 15",[],60);
+	$recentComments = dbAr("SELECT b.id, SUBSTR(a.content,1,30) as conbar FROM zb_comment a, zb_contentpages b where b.is_show = 1 AND is_whisper = 0 AND a.pageid = b.id AND b.user_id = {$blogInfo['id']} ORDER BY a.time DESC LIMIT 15",[],60);
 
 	//for sidebar.php
 	foreach ($recentComments as $v) {
 		$blogNewReply[] = "<a href='http://realblog.zkiz.com/{$blogInfo['username']}/{$v['id']}'>" . htmlspecialchars($v['conbar']) . "</a>";
 	}
 }
-$z = dbAr("SELECT * FROM zb_contentpages WHERE ownerid = {$blogInfo['id']} AND isshow = 1 AND is_page = 0 ORDER BY views DESC LIMIT 10",[], 7200);
+$z = dbAr("SELECT * FROM zb_contentpages WHERE user_id = {$blogInfo['id']} AND is_show = 1 AND is_page = 0 ORDER BY views DESC LIMIT 10",[], 7200);
 //print_R($z);
 //for sidebar.php
 if ($z) {

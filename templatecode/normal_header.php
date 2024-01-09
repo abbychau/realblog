@@ -136,9 +136,9 @@ if (!$htmltitle) {
 
 					<ul class="nav navbar-nav navbar-right">
 						<li><a onclick="$('#login_form_nav').submit()">登入</a></li>
-						<li><a href="//members.zkiz.com/reg.php">註冊</a></li>
+						<li><a href="/register.php">註冊</a></li>
 					</ul>
-					<form class="navbar-form navbar-right" id="login_form_nav" method="post" action="//members.zkiz.com/processlogin.php">
+					<form class="navbar-form navbar-right" id="login_form_nav" method="post" action="/login.php">
 						<div class="form-group">
 							<input name="username" type="text" placeholder="使用者名稱" class="form-control" />
 						</div>

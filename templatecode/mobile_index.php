@@ -26,9 +26,9 @@
 		<?php foreach ($hot_topics as $row){ ?>
 			<li>
 				<a href="/<?php echo $row['username']; ?>/<?php echo $row['id']; ?>"><?php echo htmlspecialchars(mb_substr($row['title'],0,40,'UTF-8')); ?></a>
-				<span style='color:#AAA'><?php echo timeago(strtotime($row['datetime'])); ?> : </span>
+				<span style='color:#AAA'><?php echo timeago(strtotime($row['create_time'])); ?> : </span>
 				<span style='color:#AAA'>[<?php echo $row['blogname']; ?>]</span>
-				(<?php echo $row['commentnum']; ?>個評論)
+				(<?php echo $row['comment_count']; ?>個評論)
 			</li>
 		<?php } ?>
 	</ul>
@@ -77,15 +77,6 @@
 			<li><a href="/bloglist.php" target="_blank">BLOG 列表</a></li>
 		</ul>
 	</div>
-</section>
-<section>
-	
-	<h3>FeedBurner RSS</h3>
-	<div>
-		
-		<a target="_blank" href="http://feeds.feedburner.com/~r/zkiz/rb/~6/1">
-		<img src="http://feeds.feedburner.com/zkiz/rb.1.gif" alt="Real Blog 最新文章" style="border:0" /></a>
-	</div>	
 </section>
 <section>
 

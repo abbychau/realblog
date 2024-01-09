@@ -6,8 +6,8 @@ if (isset($_SERVER['QUERY_STRING'])) {
 }
 if ((isset($_POST["MM_update"])) && ($_POST["MM_update"] == "form1")) {
 
-$ownerID = dbRs("SELECT ownerid FROM zb_contenttype WHERE id = :id",['id'=>$_GET['id']]);
-if($ownerID != $gId){die('Access Denied');}
+$user_id = dbRs("SELECT user_id FROM zb_contenttype WHERE id = :id",['id'=>$_GET['id']]);
+if($user_id != $gId){die('Access Denied');}
 
   dbQuery("UPDATE zb_contenttype SET name=:name WHERE id=:id",['name'=>$_POST['name'],'id'=>$_GET['id']]);
   die("修改成功! 請關掉視窗");

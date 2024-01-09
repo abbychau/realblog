@@ -3,7 +3,7 @@ require_once('../include/common.php');
 if(!$isLog){die ("Please Login");}
 
 if ($_POST["action"] == "insert_cate") {
-	$id = dbQuery("INSERT INTO zb_contenttype (ownerid, name) VALUES ($gId, :name)",['name'=>$_POST['name']]);
+	$id = dbQuery("INSERT INTO zb_contenttype (user_id, name) VALUES ($gId, :name)",['name'=>$_POST['name']]);
 	echo json_encode(array("id"=>$id, "name"=> $_POST['name']));
 	exit;
 }
@@ -15,13 +15,13 @@ if($_POST['action'] == 'del_cate'){
 	$numArticle = dbRs("SELECT count(*) FROM zb_contentpages WHERE type = $tid");
 	if ($numArticle>0){die("This category has $numArticle articles left, deletion is not allowed.");}
 
-	$owner_id = dbRs("SELECT ownerid FROM zb_contenttype WHERE id = $tid");
+	$owner_id = dbRs("SELECT user_id FROM zb_contenttype WHERE id = $tid");
 	if($owner_id != $gId){die('Access Denied');}
 	dbQuery("DELETE FROM zb_contenttype WHERE id=$tid");
 	die("Deleted");
 }
 
-$gettype = dbAr("SELECT * FROM zb_contenttype WHERE ownerid = $gId");
+$gettype = dbAr("SELECT * FROM zb_contenttype WHERE user_id = $gId");
 
 ?>
 <script>

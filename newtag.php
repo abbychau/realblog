@@ -1,7 +1,7 @@
 <?php
 	require_once('include/common.php');
 	//header("content-type:text/plain");
-	$a = dbAr("SELECT id from zb_contentpages where ownerid = 656");
+	$a = dbAr("SELECT id from zb_contentpages where user_id = 656");
 	
 	foreach($a as $v){
 		echo $v['id']." : ";

@@ -24,10 +24,10 @@
 
 <?php
 	$query_getBloglist = "
-	SELECT username, blogname, title, b.id, datetime FROM
+	SELECT username, blogname, title, b.id, create_time FROM
 	(SELECT id, username, blogname,blacklisted FROM zb_user) a,
-	(SELECT b1.id , b1.ownerid, title, datetime FROM zb_contentpages b1, (SELECT ownerid, max(id) as id FROM zb_contentpages group by ownerid) b2 WHERE b1.id = b2.id AND b1.ownerid = b2.ownerid) b
-	WHERE a.id = b.ownerid
+	(SELECT b1.id , b1.user_id, title, create_time FROM zb_contentpages b1, (SELECT user_id, max(id) as id FROM zb_contentpages group by user_id) b2 WHERE b1.id = b2.id AND b1.user_id = b2.user_id) b
+	WHERE a.id = b.user_id
 	AND a.blacklisted <> 1
 	ORDER BY b.id DESC LIMIT 50
 	";
@@ -82,8 +82,8 @@
             <ul class="list-group" id="hot_blog_post">
                 <?php foreach ($hot_topics as $row) { ?>
                     <li class="list-group-item">
-                        <span class="badge">CM: <?= $row['commentnum']; ?></span>
-                        <span class='c999'><?php echo timeago(strtotime($row['datetime'])); ?> : </span>
+                        <span class="badge">CM: <?= $row['comment_count']; ?></span>
+                        <span class='c999'><?php echo timeago(strtotime($row['create_time'])); ?> : </span>
                         <a href='/<?= $row['username']; ?>' style="color:#666"><?php echo $row['blogname']; ?></a>
                         <br/>
                         <a href="/<?php echo $row['username']; ?>/<?php echo $row['id']; ?>"
@@ -105,8 +105,8 @@
 			<ul class="list-group">
 				<?php foreach ($getentries as $row) { ?>
 					<li class="list-group-item">
-						<span class="badge">CM: <?= $row['commentnum']; ?></span>
-						<span class='c999'><?php echo timeago(strtotime($row['datetime'])); ?> : </span>
+						<span class="badge">CM: <?= $row['comment_count']; ?></span>
+						<span class='c999'><?php echo timeago(strtotime($row['create_time'])); ?> : </span>
 						<a href='/<?= $row['username']; ?>' style="color:#666"><?php echo $row['blogname']; ?></a>
 						<br />
 						<a href="/<?= $row['username']; ?>/<?= $row['id']; ?>" class='list-title'><?= htmlspecialchars(mb_substr($row['title'], 0, 40, 'UTF-8')); ?></a>
@@ -175,13 +175,7 @@
 
         <div class='panel panel-default'>
             <div class='panel-body' style='font-size:1.2em'>
-                <div>
 
-                    <a target="_blank" href="//feeds.feedburner.com/~r/zkiz/rb/~6/1">
-                        <img src="//feeds.feedburner.com/zkiz/rb.1.gif" alt="Real Blog 最新文章" style="border:0"/></a>
-                </div>
-                <br/>
-                <a href='/activate.php'>重新連結RB 到ZKIZ passport</a><br />
                 <a href="/bloglist.php" target="_blank">BLOG 列表</a><br />
                 <a href="https://github.com/abbychau/realblog/issues">回報問題</a>
                 

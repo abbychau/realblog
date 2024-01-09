@@ -20,7 +20,7 @@ function utf8_for_xml($string)
     return preg_replace ('/[^\x{0009}\x{000a}\x{000d}\x{0020}-\x{D7FF}\x{E000}-\x{FFFD}]+/u', ' ', $string);
 }
 
-$pageinfos = dbAr("SELECT * FROM zb_contentpages WHERE ownerid = $id AND isshow = 1 AND password='' ORDER BY id DESC LIMIT 10");
+$pageinfos = dbAr("SELECT * FROM zb_contentpages WHERE user_id = $id AND is_show = 1 AND password='' ORDER BY id DESC LIMIT 10");
 $Parsedown = new ParsedownExtensions();
 $Parsedown->setSafeMode(true);
 $Parsedown->setAllLinksNewTab(true);
@@ -51,7 +51,7 @@ $strXml .= "<item>
 <title>{$pageinfo['title']}</title>
 <link>http://realblog.zkiz.com/{$blogInfo['username']}/{$pageinfo['id']}</link>
 <content type=\"$type\">{$pageinfo['content']}</content>
-<pubDate>{$pageinfo['datetime']}</pubDate>
+<pubDate>{$pageinfo['create_time']}</pubDate>
 </item>";
 }
 $strXml .= "</channel></rss>";

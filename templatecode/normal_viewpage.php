@@ -16,10 +16,10 @@
 		<?}?>
 		
 		<div style='display:inline'	>
-			<span class="glyphicon glyphicon-time"></span> <?=$row_getpage['datetime']; ?>
+			<span class="glyphicon glyphicon-time"></span> <?=$row_getpage['create_time']; ?>
 			
 			<div class="contentbody" id="pagecontent">
-				<?if ($row_getpage['isshow']==1){?>
+				<?if ($row_getpage['is_show']==1){?>
 					
 					<? if($row_getpage['password'] && ($_POST['password'] != $row_getpage['password'])){?>
 						Password Protected.
@@ -55,7 +55,7 @@
 			
 			<span class="glyphicon glyphicon-th-list"></span> <a href='/<?=$blogInfo['username']?>/<?=$row_getpage["type"];?>/0'><?=$thisType?></a>
 			<div style='display: inline; padding:0 1em'>
-				<?if($thistags && $row_getpage['isshow']==1){?>
+				<?if($thistags && $row_getpage['is_show']==1){?>
 					<span class="glyphicon glyphicon-tag"></span> 
 					<?foreach($thistags as $v){?>
 						<a class='' href="/<?=$gUser;?>/tag/<?=$v; ?>"><?=$v; ?></a> 

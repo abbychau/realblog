@@ -27,7 +27,7 @@
 
 <!--AABP-->
 <script type="text/javascript">var adblock = true;</script>
-<script type="text/javascript" src="//realforum.zkiz.com/js/adframe.js"></script>
+<script type="text/javascript" src="/js/adframe.js"></script>
 <script type="text/javascript">if(adblock){alert("Please do not enable adblock on our site. We rely on them.");}</script>
 <!--END_AABP-->
 

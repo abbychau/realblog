@@ -6,10 +6,10 @@
 	if (isset($_GET['pageNum_getBloglist'])) {$pageNum_getBloglist = $_GET['pageNum_getBloglist'];}
 	$startRow_getBloglist = $pageNum_getBloglist * $maxRows_getBloglist;
 	$query_getBloglist = "
-	SELECT username, blogname, title, b.id, datetime FROM
+	SELECT username, blogname, title, b.id, create_time FROM
 	(SELECT id, username, blogname,blacklisted FROM zb_user) a,
-	(SELECT b1.id , b1.ownerid, title, datetime FROM zb_contentpages b1, (SELECT ownerid, max(id) as id FROM zb_contentpages group by ownerid) b2 WHERE b1.id = b2.id AND b1.ownerid = b2.ownerid) b
-	WHERE a.id = b.ownerid
+	(SELECT b1.id , b1.user_id, title, create_time FROM zb_contentpages b1, (SELECT user_id, max(id) as id FROM zb_contentpages group by user_id) b2 WHERE b1.id = b2.id AND b1.user_id = b2.user_id) b
+	WHERE a.id = b.user_id
 	AND a.blacklisted <> 1
 	ORDER BY b.id DESC
 	";
@@ -59,7 +59,7 @@
 			<td><a href="/<?php echo $row_getBloglist['username']; ?>"><?=mb_substr($row_getBloglist['blogname'],0,40,"utf8"); ?></a></td>
 			<td><?php echo $row_getBloglist['username']; ?></td>
 			<td><a href="/<?php echo $row_getBloglist['username']; ?>/<?=$row_getBloglist['id'];?>"><?=mb_substr($row_getBloglist['title'],0,40,"utf8");?></a></td>
-			<td><?=timeago(strtotime($row_getBloglist['datetime']));?></td>
+			<td><?=timeago(strtotime($row_getBloglist['create_time']));?></td>
 		</tr>
 	<?php } ?>
 </table>
